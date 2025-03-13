@@ -1,12 +1,12 @@
 name: modules
-title: Default Title
+title: CasC for Ansible Automation Platform 2.5
 version: master
 nav:
   - modules/ROOT/nav.adoc
 
 asciidoc:
   attributes:
-    lab_name: "I'm the lab_name var"
+    lab_name: "Configuration-as-code for Red Hat Ansible Automation Platform 2.5 with validated collections"
     release-version: master
     page-pagination: true
     my_var: "foo"

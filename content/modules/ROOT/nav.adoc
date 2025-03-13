@@ -1,7 +1,27 @@
-* xref:module-01.adoc[1. RPM Native Container]
+* xref:module-01.adoc[1. Config as Code Setup]
+** xref:module-01.adoc#setup[Setup]
 ** xref:module-01.adoc#repositories[Repositories]
-** xref:module-01.adoc#software[Software]
+** xref:module-01.adoc#inventory[Inventory]
+** xref:module-01.adoc#vault[Vault]
+** xref:module-01.adoc#organizations[Organizations]
+** xref:module-01.adoc#service_account[Service_account]
+** xref:module-01.adoc#repositories[Repositories]
+** xref:module-01.adoc#playbook[Playbook]
+** xref:module-01.adoc#results[Results]
 
-* xref:module-02.adoc[2. GitHub Sourced Container]
+
+* xref:module-02.adoc[2. Hub configuration]
+** xref:module-02.adoc#prerequisites[Install Prerequisites]
+** xref:module-02.adoc#container[Enable Container]
+
+* xref:module-02.adoc[3. Controller Configuration]
+** xref:module-02.adoc#prerequisites[Install Prerequisites]
+** xref:module-02.adoc#container[Enable Container]
+
+* xref:module-02.adoc[2. Build an EE]
+** xref:module-02.adoc#prerequisites[Install Prerequisites]
+** xref:module-02.adoc#container[Enable Container]
+
+* xref:module-02.adoc[2. Create a Workflow]
 ** xref:module-02.adoc#prerequisites[Install Prerequisites]
 ** xref:module-02.adoc#container[Enable Container]

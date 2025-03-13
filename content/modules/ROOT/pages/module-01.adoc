@@ -1,149 +1,239 @@
-= Building an Application with rpms
+= Building out the basics for config as code.
 
-== Downloading the UBI
+[#setup]
+== Task 1 - Setting up the project
 
-In this lab, you will be installing software into the container 
-image running as an interactive application. To do this you will
-need `yum`, but do not need `systemd` for managing services within the
-container environment.  For that reason, you will be using the *Standard*
-UBI image (as opposed to the Minimal or Multi-service images).
+In this lab, you will be creating configuration files in order to set a state on the Ansible Automation Platform.
+This requires several prerequisites.
 
-Using the "buildah from" command will download and meld the container image. This particular image we are using is the Red Hat Universal Base Image or UBI. From the ourput of the command, you will notice that we are pulling down the latest one, which is for RHEL 9. 
 
-. Execute the  download the Standard UBI
-image from Red Hat's registry.
+Install our collections and containers.podman using `ansible-galaxy` command. Make sure the versions are correct.
 
-+
-[source,sh,role=execute]
-----
-buildah from registry.access.redhat.com/ubi9/ubi
-----
+```console
+ansible-galaxy collection install infra.ee_utilities:4.0.0 infra.aap_configuration:3.1.0 containers.podman:1.16.3 community.general:10.4.0 ansible.hub:1.0.0
+```
+
+Further documentation for those who are interested to learn more see:
+
+- https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#collections[Installing collections using cli]
+- https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#collections-support[Using collections in AAP]
+
+
 
 [#repositories]
-== Installing Repositories
-In this lab, you are going to containerize a software package that is already
-packaged in RPM format and stored in the Extra Packages for Enterprise Linux
-(EPEL) repository.
+== Task 2 - Creating Variable Files
+### **In the next few steps pay attention to the folder paths and make sure to put the files in the correct folders**
 
-Software often has requirements for prerequisite software that must be installed
-on the machine for it to work properly.  `yum` will resolve those
-dependencies for you, as long as it can locate the required packages in
-repositories defined on the machine.  The Red Hat Universal Base Image (UBI)
-downloaded in the previous step has access to some Red Hat Enterprise Linux
-repositories.  However, the target package for the lab is from EPEL.  
+Set the variables to be used in the collections for use. These include hosts, usernames, and other variables that are reused in each role.
 
-. In the command below, `buildah` is going to run a command on the
-`ubi-working-container` image.  The `--` indicates that the command should be
-executed from within the container, which means the results will be applied into
-the container image.  Lastly, you are providing the `yum` command to install a
-package that defines all of the repositories from EPEL, `epel-release-latest-9`.
+Create a file in this folder path
+```yaml
+group_vars/all/auth.yml
+```
+With the following content:
 
-+
-[source,bash]
-----
-buildah run ubi-working-container -- yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-----
+```yaml
+---
+sandbox_id: ####
 
+aap_hostname: "{{ 'controller.' + lookup('ansible.builtin.env', 'GUID') + '.sandbox' + sandbox_id + '.opentlc.com' }}"
+aap_username: lab-user
+aap_password: "{{ aap_password }}"
+aap_validate_certs: false
+aap_request_timeout: 60
 
-. You can verify that the above command did not install the RPM on the host system.
+ee_pull_collections_from_hub: false
+aap_token_username: aap_service_account
 
-+
-[source,bash]
-----
-rpm -q epel-release
-----
+ee_registry_username: lab-user
+ee_registry_password: "{{ aap_password }}"
+ee_registry_dest: "{{ aap_hostname }}/config"
 
-NOTE: If your repository configurations are not distributed as an RPM, but instead as
-individual `.repo` files, you could use the `buildah copy` command to copy
-files from the host operating system into the container image.  You will see
-an example of using `buildah copy` later in this lab.
+ee_base_registry: "{{ aap_hostname }}"
+ee_base_registry_username: "{{ aap_username }}"
+ee_base_registry_password: "{{ aap_password }}"
+ee_validate_certs: false
+...
 
-[#software]
-== Installing Software
+```
 
 
-. Now that the yum repositories are defined within the container, execute 
-another `yum install`, within the container, to install the target
-software: `moon-buggy`.
+Further documentation for those who are interested to learn more see:
 
-+
-[source,bash]
-----
-buildah run ubi-working-container -- yum -y install moon-buggy
-----
+- https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#organizing-host-and-group-variables[more about group_vars]
 
 
-== Committing the Container Image
 
-. At this point, the container is configured.  It is time to transition from a
-working container into a committed image.  In the command below, you will use
-the `buildah` command to commit the working container to an image called:
-`moon-buggy`.
+[#inventory]
+== Creating our inventory file
 
-+
-[source,bash]
-----
-buildah commit ubi-working-container moon-buggy
-----
+Create your inventory file `inventory.yml`, You do not need to replace anything in this file.
 
-+
-. The output of `podman image list` should confirm the image was created.
+```yaml
+---
+all:
+  children:
+    automationcontroller:
+      hosts:
+        control:
+          ansible_host: "{{ 'controller.' + lookup('ansible.builtin.env', 'GUID') + '.sandbox' + sandbox_id + '.opentlc.com' }}"
+    execution:
+      hosts:
+        localhost:
+          ansible_connection: local
+...
 
-+
-[source,bash]
-----
-podman image list
-----
+```
+
+NOTE: These are hostnames do not have 'https://' or things will fail
+
+Further documentation for those who are interested to learn more see:
+
+- https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#inventory-basics-formats-hosts-and-groups[more about inventories]
+- https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html#add-source[how to use this source in AAP]
+
+[#vault]
+== Create our Vault
+
+Create a vault file `vault.yml` and **YOU WILL NEED TO FILL THESE IN** with the provided password for AAP for each variable. Currently they are set to the description of what you should be updating them too.
+
+```yaml
+---
+vault_pass: ###REPLACEME
+machine_pass: ###REPLACEME
+aap_password: ###REPLACEME
+ah_token_password: ###REPLACEME
+student_account: ###REPLACEME
+...
+
+```
+
+NOTE: the easiest way to do this is have all passwords be the provided password.
 
 
-== Deploy the Container
+Create a `.password` file **We do not recommend you do this outside of lab environment** put your generated password in this file. Even though we are not committing this file into git because we have it in our ignore list, we do not recommend putting passwords in plain text ever, this is just to simplify/speed up the lab.
 
-Now the software has been installed and a new container image created.  It is
-time to spawn a runtime of the container image and validate the software.  The
-software we are using is a command line command.  
+```text
+Your_Generated_Password_In_.password_File
+```
 
-. When you `run` the container,
-it will be in interactive (`-it`) mode, based on the `moon-buggy` container
-image and the command run interactively will be `/usr/bin/moon-buggy`.
+Create an `ansible.cfg` file to point to the .password file.
 
-+
-[source,bash]
-----
-podman run -it moon-buggy /usr/bin/moon-buggy
-----
+```ini
+[defaults]
+vault_password_file=.password
+```
 
-+
-[source,textinfo]
-----
+Encrypt vault with the password in the .password file
 
-<<< OUTPUT ABRIDGED >>>
-               MM     MM   OOOOO    OOOOO   NN     N
-               M M   M M  O     O  O     O  N N    N
-               M  M M  M  O     O  O     O  N  N   N
-               M   M   M  O     O  O     O  N   N  N
-               M       M  O     O  O     O  N    N N
-               M       M   OOOOO    OOOOO   N     NN
+```console
+ansible-vault encrypt vault.yml
+```
 
-                     BBBBBB   U     U   GGGGG    GGGGG   Y     Y
-                     B     B  U     U  G     G  G     G   Y   Y
-                     BBBBBB   U     U  G        G          Y Y
-                     B     B  U     U  G   GGG  G   GGG     Y
-                     B     B  U     U  G     G  G     G    Y
-                     BBBBBB    UUUUU    GGGGG    GGGGG   YY
+Further documentation for those who are interested to learn more see:
 
-<<< OUTPUT ABRIDGED >>>
-----
+- https://docs.ansible.com/ansible/latest/user_guide/vault.html[ansible vaults]
+- https://ansible.readthedocs.io/projects/navigator/faq/#how-can-i-use-a-vault-password-with-ansible-navigator[vault with navigator]
 
-. You can now play the Moon Buggy game, which is a text-based version of the
-popular Moon Patrol.  When you are finished, use the `q` command to quit the
-game, which will terminate the container.
+[#organizations]
+== Create organizations
 
-+
-Alternatively, you can use `podman` to kill the running container from
-*Terminal 2*.
+Create a file `group_vars/all/organizations.yml`
 
-+
-[source,bash]
-----
-podman kill $(podman ps | grep -v CONTAINER | cut -f1 -d" " )
-----
+```yaml
+---
+aap_organizations:
+  - name: config_as_code
+...
+```
+
+Further documentation for those who are interested to learn more see:
+- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_organizations[organizations role]
+
+[#service_account]
+== Create a service account
+
+Create a file `group_vars/all/organizations.yml`
+
+```yaml
+---
+aap_user_accounts:
+  - username: "{{ aap_token_username }}"
+    password: "{{ ah_token_password }}"
+    is_superuser: true
+    state: "present"
+...
+
+```
+
+Further documentation for those who are interested to learn more see:
+- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_users[users role]
+
+[#repositories]
+== Create Collection Repositories and Remotes
+
+Create a file `group_vars/all/ah_repositories.yml` to create the list of community repositories and their remote counterpart.
+
+```yaml
+---
+hub_collection_remotes:
+  - name: community-infra
+    url: https://galaxy.ansible.com/
+    requirements:
+      - name: infra.ee_utilities
+        version: ">=4.0.0"
+      - name: infra.aap_utilities
+        version: ">=2.5.2"
+      - name: containers.podman
+        version: ">=1.13.0"
+      - name: community.general
+        version: ">=10.4.0"
+      - name: infra.aap_configuration
+        version: ">=3.1.0"
+
+
+hub_collection_repositories:
+  - name: community-infra-repo
+    description: "description of community-infra repository"
+    pulp_labels:
+      pipeline: "approved"
+    distribution:
+      state: present
+    remote: community-infra
+
+hub_configuration_collection_repository_sync_async_delay: 5
+hub_configuration_collection_repository_sync_async_retries: 150
+...
+
+```
+
+Further documentation for those who are interested to learn more see:
+
+- https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#collections[installing collections using cli]
+- https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#collections-support[using collections in AAP]
+
+[#playbook]
+== Put the playbook into action
+
+The next step is to run the playbook, in order to do the intial setup of everything above on the Platform.
+
+
+```console
+ansible-playbook playbooks/hub_config.yml -i inventory.yml -l execution
+```
+While the playbook is running you can go to the Automation Hub tab and peak at the Task Management to see the repositry syncing process
+
+image::module_1/hub_task.png[hub task,125%,125%]
+
+
+[#results]
+== Create Collection Repositories and Remotes
+Navigate to the AAP login with the provided passwords
+
+In each section on the you should find the changes you have made
+Repository:
+![Repository](https://play.instruqt.com/assets/tracks/ruhjcwssqojn/b3ee2fe044c2821b0b35e2d0c2cb06ee/assets/image.png)
+User:
+![user](https://play.instruqt.com/assets/tracks/ruhjcwssqojn/56c1cd58c860a64384e018a24a5252b7/assets/image.png)
+
+== Next
