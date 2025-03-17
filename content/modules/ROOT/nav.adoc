@@ -25,3 +25,8 @@
 * xref:module-02.adoc[2. Create a Workflow]
 ** xref:module-02.adoc#prerequisites[Install Prerequisites]
 ** xref:module-02.adoc#container[Enable Container]
+
+* xref:instruqt_part1_ee.adoc[1 Test Create ee instruqt]
+* xref:instruqt_part2_hub.adoc[1 Test Create hub instruqt]
+* xref:instruqt_part3_controller.adoc[1 Test Create controller instruqt]
+* xref:instruqt_part4_worflow.adoc[1 Test Create workflow instruqt]
