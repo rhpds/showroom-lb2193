@@ -43,7 +43,7 @@ aap_validate_certs: false
 aap_request_timeout: 60
 
 ee_pull_collections_from_hub: false
-aap_token_username: aap_service_account
+aap_service_account_username: aap_service_account
 
 ee_registry_username: lab-user
 ee_registry_password: "{{ aap_password }}"
@@ -100,9 +100,8 @@ Create a vault file `vault.yml` and **YOU WILL NEED TO FILL THESE IN** with the 
 ```yaml
 ---
 vault_pass: ###REPLACEME
-machine_pass: ###REPLACEME
 aap_password: ###REPLACEME
-ah_token_password: ###REPLACEME
+aap_service_account_password: ###REPLACEME
 student_account: ###REPLACEME
 ...
 
@@ -148,18 +147,19 @@ aap_organizations:
 ```
 
 Further documentation for those who are interested to learn more see:
+
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_organizations[organizations role]
 
 [#service_account]
 == Create a service account
 
-Create a file `group_vars/all/organizations.yml`
+Create a file `group_vars/all/users.yml`
 
 ```yaml
 ---
 aap_user_accounts:
-  - username: "{{ aap_token_username }}"
-    password: "{{ ah_token_password }}"
+  - username: "{{ aap_service_account_username }}"
+    password: "{{ aap_service_account_password }}"
     is_superuser: true
     state: "present"
 ...
@@ -167,12 +167,13 @@ aap_user_accounts:
 ```
 
 Further documentation for those who are interested to learn more see:
+
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_users[users role]
 
 [#repositories]
 == Create Collection Repositories and Remotes
 
-Create a file `group_vars/all/ah_repositories.yml` to create the list of community repositories and their remote counterpart.
+Create a file `group_vars/all/hub_repositories.yml` to create the list of community repositories and their remote counterpart.
 
 ```yaml
 ---
@@ -213,27 +214,47 @@ Further documentation for those who are interested to learn more see:
 - https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#collections-support[using collections in AAP]
 
 [#playbook]
+== Create a playbook to apply the configuration
+
+The next step is to create a playbook/file `aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
+
+```yaml
+---
+- name: Playbook to configure ansible controller post installation
+  hosts: all
+  vars_files:
+    - ../vaults/{{ env }}.yml
+  connection: local
+  tasks:
+    - name: Call dispatch role
+      ansible.builtin.include_role:
+        name: infra.aap_configuration.dispatch
+...
+
+
 == Put the playbook into action
 
-The next step is to run the playbook, in order to do the intial setup of everything above on the Platform.
+The next step is to run the playbook, in order to do the initial setup of everything above on the Platform.
 
 
 ```console
 ansible-playbook playbooks/hub_config.yml -i inventory.yml -l execution
 ```
-While the playbook is running you can go to the Automation Hub tab and peak at the Task Management to see the repositry syncing process
+While the playbook is running you can go to the Automation Hub tab and peak at the Task Management to see the repository syncing process
 
 image::module_1/hub_task.png[hub task,125%,125%]
 
 
 [#results]
-== Create Collection Repositories and Remotes
+== Validate configuration was applied
 Navigate to the AAP login with the provided passwords
 
 In each section on the you should find the changes you have made
+Org:
 Repository:
-![Repository](https://play.instruqt.com/assets/tracks/ruhjcwssqojn/b3ee2fe044c2821b0b35e2d0c2cb06ee/assets/image.png)
 User:
-![user](https://play.instruqt.com/assets/tracks/ruhjcwssqojn/56c1cd58c860a64384e018a24a5252b7/assets/image.png)
 
-== Next
+== ✅ Next Challenge
+
+Press the `+Next+` button below to go to the next challenge once you’ve
+completed the tasks.

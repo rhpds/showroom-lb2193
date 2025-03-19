@@ -1,138 +1,345 @@
-= Managing an Application from GitHub
+== 👋 Configuring the Automation controller
 
-In the first half of this workshop, we packaged an application into this portable container format manually using rpms.
-In the second half, we will consider that you may want to manage software from GitHub or some kind of software versioning application.
-Rather than installing rpms, we have individual software files and pull them out of that version control into a group of systems.
+In this section, you will only be given a summary of the objects you
+need to create along with some screenshots of a controller that is
+configured with the completed code. You will also be provided the
+variables sections from the readme’s for each of the required roles to
+help you complete this task.
 
-== Install RHEL 8 UBI
+== Task 1 - Configure settings
 
-In this lab, we will be using a different Red Hat Enterprise Linux version in my container. 
+Create a file `+group_vars/all/settings.yml+` and copy all this into the
+file.
 
-. Verify the host system release 
-
-+
-[source,bash]
+[source,yaml]
 ----
-cat /etc/redhat-release
-----
-+ 
-NOTE: The `bastion` system is Red Hat Enterprise Linux 9, and when you built the previous container, you used the UBI9 image. This means both the image and the container were built off the same Red Hat Enterprise Linux packages. 
-
-. As we did previously in this lab, Use `buildah from` to pull down the Red Hat Enterprise Linux 8 UBI.
-
-+
-[source,bash]
-----
-buildah from registry.access.redhat.com/ubi8/ubi
+---
+controller_settings:
+  settings:
+    GALAXY_IGNORE_CERTS: true
+...
 ----
 
-NOTE: Because you already pulled one image named `ubi-working-container` this one is called `ubi-working-container-1`. 
+Further documentation for those who are interested to learn more see:
 
-[#prerequisites]
-== Install Prerequisites
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/settings/README.md[settings
+role]
 
-Now that you have a working container, you will use the same process as before installing all the prerequisites, changing config files, and manipulating the contents of this container to be in the desired state.
+== Task 2 - Configure Execution Environments
 
-The software you will install is a JavaScript-based game that runs on a web browser. As before in the lab, use dnf to install software inside the container. 
+Create a file `+group_vars/all/execution_environments.yml+` and add the
+required information to the list `+controller_execution_environments+`
+to configure the UI to look like the screenshots Remember you can use
+the `+ah_host+` variable to define the hub. Each image name should look
+like `+{{ ah_host }}/image_name+`
 
-. Use `buildah run` and install Apache (`httpd`) into the `ubi-working-container-1` container. 
-+
-[source,bash]
+[source,yaml]
 ----
-buildah run ubi-working-container-1 -- dnf -y install httpd
-----
+---
+controller_execution_environments:
 
-== Enable Service
-
-The next thing to do is to use a systemctl to enable the service. The ubi-init provides full systemd service to the container.
-This will start up any of the services that are enabled. 
-
-. Enable the `httpd` service using `buildah run`
-
-+
-[source,bash]
-----
-buildah run ubi-working-container-1 -- systemctl enable httpd
+...
 ----
 
-NOTE: The UBI standard image doesn't have systemd installed on it by default. The `ubi-init` container image does include systemd. Plan accordingly to which image you use to build applications.  
+Further documentation for those who are interested to learn more see:
 
-== Explore Source Materials
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/execution_environments/README.md[execution
+environments role]
 
-A GitHub repository has already been synchronized to `/home/devops/clumsy-bird/` This repository contains the configurations for your application.
+== Task 3 - Create credential types
 
-. Verify the repository is cloned inside the `/home/devops/` directory
-+
-[source,bash]
+Create a file `+group_vars/all/credential_types.yml+` where we will
+create a list called `+controller_credential_types+` that has 5
+variables per item which are:
+
+* `+name+` this is required and will be what the credential type will be
+called
+* `+description+` this is the description of the credential type
+* `+kind+` The type of credential type being added. Note that only cloud
+and net can be used for creating credential types.
+* `+inputs+` Enter inputs using either JSON or YAML syntax. Refer to the
+Ansible controller documentation for example syntax. These will be the
+fields in the GUI that prompt the user for input.
+* `+injectors+` Enter injectors using either JSON or YAML syntax. Refer
+to the Ansible controller documentation for example syntax. These are
+the variables that will then be useable in a job.
+
+which the role will loop over and for each item in this list it will
+create custom credential types for use in the controller.
+
+[source,yaml]
 ----
-cd /home/devops/
+---
+controller_credential_types:
+  - name: automation_hub
+    description: automation hub
+    kind: cloud
+    inputs:
+      fields:
+        - id: verify_ssl
+          type: boolean
+          label: Verify SSL
+        - id: hostname
+          type: string
+          label: Hostname
+        - id: username
+          type: string
+          label: Username
+        - id: password
+          type: string
+          label: Password
+          secret: true
+        - id: token
+          type: string
+          label: Token
+          secret: true
+      required:
+        - hostname
+    injectors:
+      env:
+        AH_PASSWORD: !unsafe "{{ password }}"
+        AH_USERNAME: !unsafe "{{ username }}"
+        AH_HOST: !unsafe # Insert appropriate variable from above here
+        AH_API_TOKEN: !unsafe # Insert appropriate variable from above here
+        AH_VERIFY_SSL: !unsafe # Insert appropriate variable from above here
+      extra_vars:
+        ah_password: !unsafe "{{ password }}"
+        ah_username: !unsafe "{{ username }}"
+        ah_host: !unsafe # Insert appropriate variable from above here
+        ah_token: !unsafe # Insert appropriate variable from above here
+        ah_validate_certs: !unsafe # Insert appropriate variable from above here
+
+  - name: ssh_priv_file
+    kind: cloud
+    description: creates temp ssh priv key to use (cannot have passphrase)
+    inputs:
+      fields:
+        - id: priv_key
+          type: string
+          label: Certificate
+          format: ssh_private_key
+          multiline: true
+          secret: true
+    injectors:
+      env:
+        MY_CERT_FILE_PATH: !unsafe '{{ tower.filename.cert_file }}'
+      file:
+        template.cert_file: !unsafe '{{ priv_key }}'
+...
 ----
 
-+
-[source,bash]
-----
-git clone https://github.com/ellisonleao/clumsy-bird
-----
-+
-NOTE: The output states that the software has already been checked out. 
-+
-. Explore the JavaScript contents, index files, and everything else that we need for this web-based JavaScript software.
-+
-[source,bash,role=execute]
-----
-ls clumsy-bird
-----
+Further documentation for those who are interested to learn more see:
 
-== Add Source Materials to Container
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/credential_types/README.md[credential
+types role]
 
-. Now that you have verified the source materials exist, you will put the software inside of my container image using the `buildah copy` command.
-+
-[source,bash]
+== Task 4 - Create organizations
+
+Create a file `+group_vars/all/organizations.yml+` and add the required
+information to the list `+controller_organizations+` to configure the UI
+to look like the screenshot
+
+[source,yaml]
 ----
-buildah copy ubi-working-container-1 clumsy-bird /var/www/html
+---
+controller_organizations:
+...
 ----
 
-[#container]
-== Enable Container in Background
+Further documentation for those who are interested to learn more see:
 
-In the previous section of this lab, you ran the game natively through interactive mode. Because you are now building a web application you will need to run the container in the background and access it through a web address. 
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/organizations/README.md[organizations
+role]
 
-. Execute `buildah config` to specify a port and initialize the container. 
+== Task 5 - Create credentials
 
-+
-[source,bash]
+Create a file `+group_vars/all/credentials.yml+` and add the required
+information to the list `+controller_credentials+` to configure the UI
+to look like the screenshot. Make it to look like the screenshot, but
+make sure to use parameters for the values. DO NOT PASTE YOUR CLEARTEST
+CREDENTIALS!
+
+[source,yaml]
 ----
-buildah config --port 80 --cmd "/usr/sbin/init" ubi-working-container-1
+---
+controller_credentials:
+  - name: aap_admin
+    credential_type: Red Hat Ansible Automation Platform
+    organization: config_as_code
+    description: aap admin account
+    inputs:
+      host: "{{ controller_hostname }}"
+      username: "{{ controller_username }}"
+      password: "{{ controller_password }}"
+      verify_ssl: false
+
+  - name: ah_token_user
+    credential_type: automation_hub
+    organization: config_as_code
+    description: automation hub api account
+    inputs:
+      hostname: "{{ ah_host }}"
+      username: "{{ ah_token_username }}"
+      token: "{{ ah_token }}"
+      verify_ssl: false
+
+  - name: ah_certified
+    credential_type: Ansible Galaxy/Automation Hub API Token
+    organization: config_as_code
+    inputs:
+      url: "https://{{ ah_host }}/api/galaxy/content/rh-certified/"
+      token: "{{ ah_token }}"
+
+  - name: ah_published
+    credential_type: Ansible Galaxy/Automation Hub API Token
+    organization: config_as_code
+    inputs:
+      url: "https://{{ ah_host }}/api/galaxy/content/published/"
+      token: "{{ ah_token }}"
+
+  - name: community-infra-repo
+    credential_type: Ansible Galaxy/Automation Hub API Token
+    organization: config_as_code
+    inputs:
+      url: "https://{{ ah_host }}/api/galaxy/content/community-infra-repo/"
+      token: "{{ ah_token }}"
+
+  - name: cr_ah
+    credential_type: Container Registry
+    organization: config_as_code
+    inputs:
+      host: "{{ ah_host }}"
+      username: "{{ ah_username }}"
+      password: "{{ ah_password }}"
+      verify_ssl: false
+
+  - name: root
+    credential_type: Machine
+    organization: config_as_code
+    description: local password
+    inputs:
+      username: student
+      password: "{{ machine_pass }}"
+
+  - name: github
+    credential_type: Source Control
+    organization: config_as_code
+    description: git
+    inputs:
+      username: "{{ student_account }}"
+      password: "{{ machine_pass }}"
+
+  - name: vault
+    credential_type: Vault
+    organization: config_as_code
+    description: vault password
+    inputs:
+      vault_password: "{{ vault_pass }}"
+...
 ----
 
-NOTE: The command makes a configuration change to this container. I'm configuring this container to accept connections to its port 80. When the container starts up, it should run the init command, which, in this case, is going to be the Apache daemon right from earlier when I enabled it.
+Further documentation for those who are interested to learn more see:
 
-== Commit Container and Deploy
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/credentials/README.md[credentials
+role]
 
-. Now that we have a container in a working configured state, it is time to make that permanent by committing it to a container image called `clumsy-bird`
-+
-[source,bash]
-----
-buildah commit ubi-working-container-1 clumsy-bird
-----
+== Task 6 - Create projects
 
-. Verify that the image was created with `podman`
-+
-[source,bash]
+Create a file `+group_vars/all/projects.yml+` and add the required
+information to the list `+controller_projects+` to configure the UI to
+look like the screenshot.
+
+==== What git project are we pointing at
+
+[source,yaml]
 ----
-podman images
-----
-+
-. Run the container Now it's time to run the container. 
-+
-[source,bash]
-----
-podman run -d -p 8500:80 clumsy-bird
+---
+controller_configuration_projects_async_delay: 5
+controller_projects:
+
+...
 ----
 
-== Verify Application
+Further documentation for those who are interested to learn more see:
 
-Verify that the application is running by navigating to
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/projects/README.md[projects
+role]
 
-http://bastion.{guid}.example.opentlc.com:8500
+== Task 7 - Run inventories
 
+Create a file `+group_vars/all/inventories.yml+` and add the required
+information to the list `+controller_inventories+` to configure the UI
+to look like the screenshot
+
+[source,yaml]
+----
+---
+controller_inventories:
+
+...
+----
+
+Further documentation for those who are interested to learn more see:
+
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/inventories/README.md[inventories
+role]
+
+== Task 8 - Create inventory sources
+
+Create a file `+group_vars/all/inventory_sources.yml+` and add the
+required information to the list `+controller_inventory_sources+` to
+configure the UI to look like the screenshot *NOTE the inventory file
+name should be just inventory.yml*
+
+[source,yaml]
+----
+---
+controller_inventory_sources:
+
+...
+----
+
+Further documentation for those who are interested to learn more see:
+
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/inventory_sources/README.md[inventory
+sources role]
+
+== Task 9 - Create job_templates
+
+Create a file `+group_vars/all/job_templates.yml+` and add the required
+information to the list `+controller_templates+` to configure the UI to
+look like the screenshot
+
+Pay attention to the credentials attached to each job template.
+
+[source,yaml]
+----
+---
+controller_templates:
+
+...
+----
+
+Further documentation for those who are interested to learn more see:
+
+* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/job_templates/README.md[job
+templates role]
+
+== Task 10 - Run the playbook
+
+Run aap_config playbook.
+
+[source,console]
+----
+ansible-navigator run playbooks/aap_config.yml --eei hub.$INSTRUQT_PARTICIPANT_ID.instruqt.io/config_as_code -i inventory.yml -l execution --pa='--tls-verify=false' -m stdout  --penv INSTRUQT_PARTICIPANT_ID
+----
+
+== Task 11 - See the Results
+
+After the playbook is complete you should be able to navigate to the
+controller and see all the changes.
+
+== ✅ Next Challenge
+
+Press the `+Next+` button below to go to the next challenge once you’ve
+completed the tasks.
