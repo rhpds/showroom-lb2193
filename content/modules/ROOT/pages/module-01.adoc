@@ -231,6 +231,7 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
       ansible.builtin.include_role:
         name: infra.aap_configuration.dispatch
 ...
+```
 
 
 == Put the playbook into action
