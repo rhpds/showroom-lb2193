@@ -9,12 +9,11 @@
 ** xref:module-01.adoc#playbook[Playbook]
 ** xref:module-01.adoc#results[Results]
 
-
-* xref:module-02.adoc[2. Hub configuration]
+* xref:module-02.adoc[2. Controller Configuration]
 ** xref:module-02.adoc#prerequisites[Install Prerequisites]
 ** xref:module-02.adoc#container[Enable Container]
 
-* xref:module-02.adoc[3. Controller Configuration]
+* xref:module-02.adoc[3. Hub configuration]
 ** xref:module-02.adoc#prerequisites[Install Prerequisites]
 ** xref:module-02.adoc#container[Enable Container]
 
