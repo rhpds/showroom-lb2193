@@ -34,7 +34,7 @@ With the following content:
 
 ```yaml
 ---
-sandbox_id: ####
+sandbox_id: ###REPLACEME
 
 aap_hostname: "{{ 'controller.' + lookup('ansible.builtin.env', 'GUID') + '.sandbox' + sandbox_id + '.opentlc.com' }}"
 aap_username: lab-user
@@ -56,7 +56,7 @@ ee_validate_certs: false
 ...
 
 ```
-
+NOTE: `sandbox_id` value needs to be inside quotes or you will get an error saying: 'an only concatenate str (not \"int\") to str'
 
 Further documentation for those who are interested to learn more see:
 
@@ -216,14 +216,15 @@ Further documentation for those who are interested to learn more see:
 [#playbook]
 == Create a playbook to apply the configuration
 
-The next step is to create a playbook/file `aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
+
+The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
 ```yaml
 ---
 - name: Playbook to configure ansible controller post installation
   hosts: all
   vars_files:
-    - ../vaults/{{ env }}.yml
+    - ../vault.yml
   connection: local
   tasks:
     - name: Call dispatch role
@@ -250,9 +251,10 @@ image::module_1/hub_task.png[hub task,125%,125%]
 Navigate to the AAP login with the provided passwords
 
 In each section on the you should find the changes you have made
-Org:
-Repository:
-User:
+
+- Org:
+- Repository:
+- User:
 
 == ✅ Next Challenge
 
