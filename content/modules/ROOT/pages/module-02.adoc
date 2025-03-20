@@ -8,7 +8,7 @@ help you complete this task.
 
 == Task 1 - Configure settings
 
-Create a file `+group_vars/all/settings.yml+` and copy all this into the
+Create a file `group_vars/all/settings.yml` and copy all this into the
 file.
 
 [source,yaml]
@@ -27,11 +27,11 @@ role]
 
 == Task 2 - Configure Execution Environments
 
-Create a file `+group_vars/all/execution_environments.yml+` and add the
-required information to the list `+controller_execution_environments+`
+Create a file `group_vars/all/execution_environments.yml` and add the
+required information to the list `controller_execution_environments`
 to configure the UI to look like the screenshots Remember you can use
-the `+ah_host+` variable to define the hub. Each image name should look
-like `+{{ ah_host }}/image_name+`
+the `ah_host` variable to define the hub. Each image name should look
+like `{{ ah_host }}/image_name`
 
 [source,yaml]
 ----
@@ -48,19 +48,19 @@ environments role]
 
 == Task 3 - Create credential types
 
-Create a file `+group_vars/all/credential_types.yml+` where we will
-create a list called `+controller_credential_types+` that has 5
+Create a file `group_vars/all/credential_types.yml` where we will
+create a list called `controller_credential_types` that has 5
 variables per item which are:
 
-* `+name+` this is required and will be what the credential type will be
+* `name` this is required and will be what the credential type will be
 called
-* `+description+` this is the description of the credential type
-* `+kind+` The type of credential type being added. Note that only cloud
+* `description` this is the description of the credential type
+* `kind` The type of credential type being added. Note that only cloud
 and net can be used for creating credential types.
-* `+inputs+` Enter inputs using either JSON or YAML syntax. Refer to the
+* `inputs` Enter inputs using either JSON or YAML syntax. Refer to the
 Ansible controller documentation for example syntax. These will be the
 fields in the GUI that prompt the user for input.
-* `+injectors+` Enter injectors using either JSON or YAML syntax. Refer
+* `injectors` Enter injectors using either JSON or YAML syntax. Refer
 to the Ansible controller documentation for example syntax. These are
 the variables that will then be useable in a job.
 
@@ -135,8 +135,8 @@ types role]
 
 == Task 4 - Create organizations
 
-Create a file `+group_vars/all/organizations.yml+` and add the required
-information to the list `+controller_organizations+` to configure the UI
+Create a file `group_vars/all/organizations.yml` and add the required
+information to the list `controller_organizations` to configure the UI
 to look like the screenshot
 
 [source,yaml]
@@ -153,8 +153,8 @@ role]
 
 == Task 5 - Create credentials
 
-Create a file `+group_vars/all/credentials.yml+` and add the required
-information to the list `+controller_credentials+` to configure the UI
+Create a file `group_vars/all/credentials.yml` and add the required
+information to the list `controller_credentials` to configure the UI
 to look like the screenshot. Make it to look like the screenshot, but
 make sure to use parameters for the values. DO NOT PASTE YOUR CLEARTEST
 CREDENTIALS!
@@ -245,8 +245,8 @@ role]
 
 == Task 6 - Create projects
 
-Create a file `+group_vars/all/projects.yml+` and add the required
-information to the list `+controller_projects+` to configure the UI to
+Create a file `group_vars/all/projects.yml` and add the required
+information to the list `controller_projects` to configure the UI to
 look like the screenshot.
 
 ==== What git project are we pointing at
@@ -267,8 +267,8 @@ role]
 
 == Task 7 - Run inventories
 
-Create a file `+group_vars/all/inventories.yml+` and add the required
-information to the list `+controller_inventories+` to configure the UI
+Create a file `group_vars/all/inventories.yml` and add the required
+information to the list `controller_inventories` to configure the UI
 to look like the screenshot
 
 [source,yaml]
@@ -286,8 +286,8 @@ role]
 
 == Task 8 - Create inventory sources
 
-Create a file `+group_vars/all/inventory_sources.yml+` and add the
-required information to the list `+controller_inventory_sources+` to
+Create a file `group_vars/all/inventory_sources.yml` and add the
+required information to the list `controller_inventory_sources` to
 configure the UI to look like the screenshot *NOTE the inventory file
 name should be just inventory.yml*
 
@@ -306,8 +306,8 @@ sources role]
 
 == Task 9 - Create job_templates
 
-Create a file `+group_vars/all/job_templates.yml+` and add the required
-information to the list `+controller_templates+` to configure the UI to
+Create a file `group_vars/all/job_templates.yml` and add the required
+information to the list `controller_templates` to configure the UI to
 look like the screenshot
 
 Pay attention to the credentials attached to each job template.
@@ -341,5 +341,5 @@ controller and see all the changes.
 
 == ✅ Next Challenge
 
-Press the `+Next+` button below to go to the next challenge once you’ve
+Press the `Next` button below to go to the next challenge once you’ve
 completed the tasks.
