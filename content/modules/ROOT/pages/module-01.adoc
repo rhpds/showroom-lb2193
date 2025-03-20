@@ -22,7 +22,8 @@ Further documentation for those who are interested to learn more see:
 
 [#repositories]
 == Task 2 - Creating Variable Files
-### **In the next few steps pay attention to the folder paths and make sure to put the files in the correct folders**
+
+**In the next few steps pay attention to the folder paths and make sure to put the files in the correct folders**
 
 Set the variables to be used in the collections for use. These include hosts, usernames, and other variables that are reused in each role.
 
@@ -231,6 +232,7 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
       ansible.builtin.include_role:
         name: infra.aap_configuration.dispatch
 ...
+
 ```
 
 
