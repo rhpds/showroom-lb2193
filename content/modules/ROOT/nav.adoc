@@ -13,17 +13,17 @@
 ** xref:module-02.adoc#prerequisites[Install Prerequisites]
 ** xref:module-02.adoc#container[Enable Container]
 
-* xref:module-02.adoc[3. Hub configuration]
-** xref:module-02.adoc#prerequisites[Install Prerequisites]
-** xref:module-02.adoc#container[Enable Container]
+* xref:module-03.adoc[3. Hub configuration]
+** xref:module-03.adoc#prerequisites[Install Prerequisites]
+** xref:module-03.adoc#container[Enable Container]
 
-* xref:module-02.adoc[2. Build an EE]
-** xref:module-02.adoc#prerequisites[Install Prerequisites]
-** xref:module-02.adoc#container[Enable Container]
+* xref:module-04.adoc[4. Build an EE]
+** xref:module-04.adoc#prerequisites[Install Prerequisites]
+** xref:module-04.adoc#container[Enable Container]
 
-* xref:module-02.adoc[2. Create a Workflow]
-** xref:module-02.adoc#prerequisites[Install Prerequisites]
-** xref:module-02.adoc#container[Enable Container]
+* xref:module-05.adoc[5. Create a Workflow]
+** xref:module-05.adoc#prerequisites[Install Prerequisites]
+** xref:module-05.adoc#container[Enable Container]
 
 * xref:instruqt_part1_ee.adoc[1 Test Create ee instruqt]
 * xref:instruqt_part2_hub.adoc[1 Test Create hub instruqt]
