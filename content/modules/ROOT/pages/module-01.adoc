@@ -242,7 +242,7 @@ The next step is to run the playbook, in order to do the initial setup of everyt
 
 
 ```console
-ansible-playbook playbooks/hub_config.yml -i inventory.yml -l execution
+ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
 ```
 While the playbook is running you can go to the Automation Hub tab and peak at the Task Management to see the repository syncing process
 
