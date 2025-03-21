@@ -1,4 +1,4 @@
-== 👋 Configuring the Automation controller
+== Configuring the Automation controller
 
 In this section, you will only be given a summary of the objects you
 need to create along with some screenshots of a controller that is
@@ -49,7 +49,7 @@ controller_execution_environments:
 
 ----
 
-Note: While you have not created this EE yet it, we have already added a version to hub so this won't fail.
+NOTE: While you have not created this EE yet it, we have already added a version to hub so this won't fail.
 
 Further documentation for those who are interested to learn more see:
 
