@@ -255,7 +255,7 @@ NOTE: Insert Screenshot with the ah_admin_user_pass credential
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/credentials/README.md[credentials
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials/README.md[credentials
 role]
 
 == Task 6 - Create projects
@@ -348,6 +348,39 @@ Further documentation for those who are interested to learn more see:
 * https://github.com/redhat-cop/controller_configuration/blob/devel/roles/job_templates/README.md[job
 templates role]
 
+== Task 10 - Update the Plabook
+== Update the playbook to get the hub token for the configuration
+
+
+The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
+
+```yaml
+---
+- name: Playbook to configure ansible controller post installation
+  hosts: all
+  gather_facts: false
+  vars_files:
+    - ../vault.yml
+  connection: local
+  tasks:
+    - name: Authenticate and get an API token from Automation Hub
+      ansible.hub.ah_token:
+        ah_host: "{{ aap_hostname }}"
+        ah_username: "{{ aap_username  }}"
+        ah_password: "{{ aap_password }}"
+        ah_path_prefix: 'galaxy'  # this is for private automation hub
+        ah_verify_ssl: false
+
+    - name: Fixing format
+      ansible.builtin.set_fact:
+        ah_token: "{{ ah_token['token'] }}"
+
+    - name: Call dispatch role
+      ansible.builtin.include_role:
+        name: infra.aap_configuration.dispatch
+...
+
+
 == Task 10 - Run the playbook
 
 Run aap_config playbook.
@@ -356,6 +389,10 @@ Run aap_config playbook.
 ----
 ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
 ----
+
+if you run into problems, look back at the section that failed, and check the documentation for that role that was linked. If the output was hidden, look for 'Secure logging variables'
+
+If you run into an error that says "Failed to get token: HTTP Error 401: Unauthorized" while other tasks pass, please rerun the playbook, this is a known issue.
 
 == Task 11 - See the Results
 

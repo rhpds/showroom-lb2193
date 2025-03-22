@@ -224,6 +224,7 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
 ---
 - name: Playbook to configure ansible controller post installation
   hosts: all
+  gather_facts: false
   vars_files:
     - ../vault.yml
   connection: local
