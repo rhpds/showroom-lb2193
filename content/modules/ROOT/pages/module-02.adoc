@@ -354,7 +354,7 @@ templates role]
 
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
-```yaml
+[source,yaml]
 ---
 - name: Playbook to configure ansible controller post installation
   hosts: all
@@ -379,6 +379,7 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
       ansible.builtin.include_role:
         name: infra.aap_configuration.dispatch
 ...
+----
 
 
 == Task 10 - Run the playbook

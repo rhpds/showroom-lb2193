@@ -28,12 +28,12 @@ Further documentation for those who are interested to learn more see:
 Set the variables to be used in the collections for use. These include hosts, usernames, and other variables that are reused in each role.
 
 Create a file in this folder path
-```yaml
+[source,yaml]
 group_vars/all/auth.yml
 ```
 With the following content:
 
-```yaml
+[source,yaml]
 ---
 sandbox_id: '###REPLACEME'
 
@@ -70,7 +70,7 @@ Further documentation for those who are interested to learn more see:
 
 Create your inventory file `inventory.yml`, You do not need to replace anything in this file.
 
-```yaml
+[source,yaml]
 ---
 all:
   children:
@@ -98,7 +98,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a vault file `vault.yml` and **YOU WILL NEED TO FILL THESE IN** with the provided password for AAP for each variable. Currently they are set to the description of what you should be updating them too.
 
-```yaml
+[source,yaml]
 ---
 vault_pass: ###REPLACEME
 aap_password: ###REPLACEME
@@ -140,7 +140,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/organizations.yml`
 
-```yaml
+[source,yaml]
 ---
 aap_organizations:
   - name: config_as_code
@@ -156,7 +156,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/users.yml`
 
-```yaml
+[source,yaml]
 ---
 aap_user_accounts:
   - username: "{{ aap_service_account_username }}"
@@ -176,7 +176,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/hub_repositories.yml` to create the list of community repositories and their remote counterpart.
 
-```yaml
+[source,yaml]
 ---
 hub_collection_remotes:
   - name: community-infra
@@ -220,7 +220,7 @@ Further documentation for those who are interested to learn more see:
 
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
-```yaml
+[source,yaml]
 ---
 - name: Playbook to configure ansible controller post installation
   hosts: all
