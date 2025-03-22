@@ -10,7 +10,7 @@ This requires several prerequisites.
 Install our collections and containers.podman using `ansible-galaxy` command. Make sure the versions are correct.
 
 ```console
-ansible-galaxy collection install infra.ee_utilities:4.0.0 infra.aap_configuration:3.1.0 containers.podman:1.16.3 community.general:10.4.0 ansible.hub:1.0.0
+ansible-galaxy collection install infra.ee_utilities:4.0.0 infra.aap_configuration:3.1.0 containers.podman:1.16.3 community.general:10.4.0 ansible.hub:1.0.0 ansible.platform:2.5.20250213 ansible.controller:4.6.8
 ```
 
 Further documentation for those who are interested to learn more see:
@@ -35,7 +35,7 @@ With the following content:
 
 ```yaml
 ---
-sandbox_id: ###REPLACEME
+sandbox_id: '###REPLACEME'
 
 aap_hostname: "{{ 'controller.' + lookup('ansible.builtin.env', 'GUID') + '.sandbox' + sandbox_id + '.opentlc.com' }}"
 aap_username: lab-user
