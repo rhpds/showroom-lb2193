@@ -22,8 +22,7 @@ controller_settings:
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/settings/README.md[settings
-role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_settings[settings role]
 
 == Task 2 - Configure Execution Environments
 
@@ -53,8 +52,7 @@ Note: While you have not created this EE yet it, we have already added a version
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/execution_environments/README.md[execution
-environments role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_execution_environments[execution environments role]
 
 == Task 3 - Create credential types
 
@@ -140,14 +138,11 @@ controller_credential_types:
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/credential_types/README.md[credential
-types role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credential_types[credential types role]
 
 == Task 4 - Create organizations
 
-Create a file `group_vars/all/organizations.yml` and add the required
-information to the list `controller_organizations` to configure the UI
-to look like the screenshot
+Update the file `group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot
 
 [source,yaml]
 ----
@@ -160,8 +155,7 @@ NOTE: Insert Screenshot with the execution environment supported and galaxy cred
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/organizations/README.md[organizations
-role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_organizations[organizations role]
 
 == Task 5 - Create credentials
 
@@ -255,8 +249,7 @@ NOTE: Insert Screenshot with the ah_admin_user_pass credential
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials/README.md[credentials
-role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[credentials role]
 
 == Task 6 - Create projects
 
@@ -279,8 +272,7 @@ NOTE: Insert Screenshot with the project
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/projects/README.md[projects
-role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_projects[projects role]
 
 == Task 7 - Create inventories
 
@@ -300,8 +292,7 @@ NOTE: Insert Screenshot with the inventories
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/inventories/README.md[inventories
-role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventories[inventories role]
 
 == Task 8 - Create inventory sources
 
@@ -322,8 +313,7 @@ NOTE: Insert Screenshot with the inventory source
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/inventory_sources/README.md[inventory
-sources role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventory_sources[inventory sources role]
 
 == Task 9 - Create job_templates
 
@@ -345,8 +335,7 @@ NOTE: Insert Screenshot with the job template
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/controller_configuration/blob/devel/roles/job_templates/README.md[job
-templates role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_job_templates[job templates role]
 
 == Task 10 - Update the Plabook
 == Update the playbook to get the hub token for the configuration
@@ -355,7 +344,7 @@ templates role]
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
 [source,yaml]
----
+----
 - name: Playbook to configure ansible controller post installation
   hosts: all
   gather_facts: false
@@ -370,11 +359,9 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
         ah_password: "{{ aap_password }}"
         ah_path_prefix: 'galaxy'  # this is for private automation hub
         ah_verify_ssl: false
-
     - name: Fixing format
       ansible.builtin.set_fact:
         ah_token: "{{ ah_token['token'] }}"
-
     - name: Call dispatch role
       ansible.builtin.include_role:
         name: infra.aap_configuration.dispatch

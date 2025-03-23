@@ -30,11 +30,11 @@ Set the variables to be used in the collections for use. These include hosts, us
 Create a file in this folder path
 [source,yaml]
 group_vars/all/auth.yml
-```
+
 With the following content:
 
 [source,yaml]
----
+----
 sandbox_id: '###REPLACEME'
 
 aap_hostname: "{{ 'controller.' + lookup('ansible.builtin.env', 'GUID') + '.sandbox' + sandbox_id + '.opentlc.com' }}"
@@ -55,8 +55,9 @@ ee_base_registry_username: "{{ aap_username }}"
 ee_base_registry_password: "{{ aap_password }}"
 ee_validate_certs: false
 ...
+----
 
-```
+
 NOTE: `sandbox_id` value needs to be inside quotes or you will get an error saying: 'an only concatenate str (not \"int\") to str'
 
 Further documentation for those who are interested to learn more see:
@@ -66,7 +67,7 @@ Further documentation for those who are interested to learn more see:
 
 
 [#inventory]
-== Creating our inventory file
+== Task 3 - Creating our inventory file
 
 Create your inventory file `inventory.yml`, You do not need to replace anything in this file.
 
@@ -83,8 +84,7 @@ all:
         localhost:
           ansible_connection: local
 ...
-
-```
+---
 
 NOTE: These are hostnames do not have 'https://' or things will fail
 
@@ -94,7 +94,7 @@ Further documentation for those who are interested to learn more see:
 - https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html#add-source[how to use this source in AAP]
 
 [#vault]
-== Create our Vault
+== Task 4 - Create our Vault
 
 Create a vault file `vault.yml` and **YOU WILL NEED TO FILL THESE IN** with the provided password for AAP for each variable. Currently they are set to the description of what you should be updating them too.
 
@@ -106,7 +106,6 @@ aap_service_account_password: ###REPLACEME
 student_account: ###REPLACEME
 ...
 
-```
 
 NOTE: the easiest way to do this is have all passwords be the provided password.
 
@@ -136,7 +135,7 @@ Further documentation for those who are interested to learn more see:
 - https://ansible.readthedocs.io/projects/navigator/faq/#how-can-i-use-a-vault-password-with-ansible-navigator[vault with navigator]
 
 [#organizations]
-== Create organizations
+== Task 5 - Create organizations
 
 Create a file `group_vars/all/organizations.yml`
 
@@ -145,14 +144,33 @@ Create a file `group_vars/all/organizations.yml`
 aap_organizations:
   - name: config_as_code
 ...
-```
+
 
 Further documentation for those who are interested to learn more see:
 
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_organizations[organizations role]
 
+
+[#team setup]
+== Task 6 - Create a Team
+
+Create a file `group_vars/all/teams.yml`
+
+[source,yaml]
+---
+aap_teams:
+  - name: config as code team
+    description: config as code team
+    organization: config_as_code
+...
+
+
+Further documentation for those who are interested to learn more see:
+
+- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_teams[teams role]
+
 [#service_account]
-== Create a service account
+== Task 7 - Create a service account
 
 Create a file `group_vars/all/users.yml`
 
@@ -165,14 +183,13 @@ aap_user_accounts:
     state: "present"
 ...
 
-```
 
 Further documentation for those who are interested to learn more see:
 
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_users[users role]
 
 [#repositories]
-== Create Collection Repositories and Remotes
+== Task 8 - Create Collection Repositories and Remotes
 
 Create a file `group_vars/all/hub_repositories.yml` to create the list of community repositories and their remote counterpart.
 
@@ -180,42 +197,38 @@ Create a file `group_vars/all/hub_repositories.yml` to create the list of commun
 ---
 hub_collection_remotes:
   - name: community-infra
-    url: https://galaxy.ansible.com/
+    url: 'https://galaxy.ansible.com/'
     requirements:
       - name: infra.ee_utilities
-        version: ">=4.0.0"
+        version: '>=4.0.0'
       - name: infra.aap_utilities
-        version: ">=2.5.2"
+        version: '>=2.5.2'
       - name: containers.podman
-        version: ">=1.13.0"
+        version: '>=1.13.0'
       - name: community.general
-        version: ">=10.4.0"
+        version: '>=10.4.0'
       - name: infra.aap_configuration
-        version: ">=3.1.0"
-
-
+        version: '>=3.1.0'
 hub_collection_repositories:
   - name: community-infra-repo
-    description: "description of community-infra repository"
+    description: description of community-infra repository
     pulp_labels:
-      pipeline: "approved"
+      pipeline: approved
     distribution:
       state: present
     remote: community-infra
-
 hub_configuration_collection_repository_sync_async_delay: 5
 hub_configuration_collection_repository_sync_async_retries: 150
-...
+---
 
-```
 
 Further documentation for those who are interested to learn more see:
 
-- https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#collections[installing collections using cli]
-- https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#collections-support[using collections in AAP]
+- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_repository[hub collection repository role]
+- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_remote[hub collection remote role]
 
 [#playbook]
-== Create a playbook to apply the configuration
+== Task 9 - Create a playbook to apply the configuration
 
 
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
@@ -234,10 +247,25 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
         name: infra.aap_configuration.dispatch
 ...
 
-```
+
+Further documentation for those who are interested to learn more see:
+
+- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/dispatch[Dispatch role]
+
+== ☑️ Task 10 - Check your paths
+
+Your folder structure should look like this, check the file structure to
+make sure files are in the right levels. Run the `+tree+` command to
+verify.
+
+[source,yaml]
+----
+Fix This and input tree output
+----
 
 
-== Put the playbook into action
+[#playbook]
+== Task 11 - Put the playbook into action
 
 The next step is to run the playbook, in order to do the initial setup of everything above on the Platform.
 
@@ -251,7 +279,7 @@ image::module_1/hub_task.png[hub task,125%,125%]
 
 
 [#results]
-== Validate configuration was applied
+== Task 11 - Validate configuration was applied
 Navigate to the AAP login with the provided passwords
 
 In each section on the you should find the changes you have made
@@ -259,6 +287,7 @@ In each section on the you should find the changes you have made
 - Org:
 - Repository:
 - User:
+- Team
 
 == ✅ Next Challenge
 

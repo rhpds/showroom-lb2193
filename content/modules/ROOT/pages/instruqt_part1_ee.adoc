@@ -211,8 +211,7 @@ Further documentation for those who are interested to learn more see:
 
 * https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_role_module.html[include
 vs import]
-* https://github.com/redhat-cop/ee_utilities/tree/main/roles/ee_builder[ee_builder
-role]
+* https://github.com/redhat-cop/ee_utilities/tree/main/roles/ee_builder[ee_builder role]
 
 == ☑️ Task 6 - Create our EE Definition
 
