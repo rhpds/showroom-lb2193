@@ -20,6 +20,7 @@ which the role will loop over and for each item in this list it will
 create and publish an EE using the provided variables.
 
 [source,yaml]
+----
 ---
 ee_list:
   - name: "config_as_code"
@@ -49,8 +50,6 @@ ee_list:
         - COPY _build/configs/ansible.cfg /etc/ansible/ansible.cfg
 ee_build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '-vvvv'
-
-
 
 prepend_galaxy:
   - COPY _build/configs/ansible.cfg /etc/ansible/ansible.cfg
@@ -95,9 +94,8 @@ Further documentation for those who are interested to learn more see:
 
 
 
-== Task 10 - Create the the Plabook
-== Create a playbook to build an EE
-
+== Task 3 - Create the the Playbook
+=== Create a playbook to build an EE
 
 The next step is to create a playbook/file `playbooks/build_ee.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 

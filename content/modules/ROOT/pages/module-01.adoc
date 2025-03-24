@@ -252,7 +252,7 @@ Further documentation for those who are interested to learn more see:
 
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/dispatch[Dispatch role]
 
-== ☑️ Task 10 - Check your paths
+== Task 10 - Check your paths
 
 Your folder structure should look like this, check the file structure to
 make sure files are in the right levels. Run the `+tree+` command to
