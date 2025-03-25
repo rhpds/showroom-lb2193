@@ -20,7 +20,7 @@ Further documentation for those who are interested to learn more see:
 
 
 
-[#repositories]
+[#variable_files]
 == Task 2 - Creating Variable Files
 
 **In the next few steps pay attention to the folder paths and make sure to put the files in the correct folders**
@@ -227,7 +227,7 @@ Further documentation for those who are interested to learn more see:
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_repository[hub collection repository role]
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_remote[hub collection remote role]
 
-[#playbook]
+[#playbook_create]
 == Task 9 - Create a playbook to apply the configuration
 
 
@@ -264,7 +264,7 @@ Fix This and input tree output
 ----
 
 
-[#playbook]
+[#playbook_run]
 == Task 11 - Put the playbook into action
 
 The next step is to run the playbook, in order to do the initial setup of everything above on the Platform.

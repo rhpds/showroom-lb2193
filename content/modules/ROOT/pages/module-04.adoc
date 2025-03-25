@@ -1,138 +1,227 @@
-= Managing an Application from GitHub
+== 👋 Using the Collection with Workflows
 
-In the first half of this workshop, we packaged an application into this portable container format manually using rpms.
-In the second half, we will consider that you may want to manage software from GitHub or some kind of software versioning application.
-Rather than installing rpms, we have individual software files and pull them out of that version control into a group of systems.
+One of the goals of the Automation Controller Collection and the
+infra.controller_configuration collection is to allow users to easily
+create objects in Ansible Automation Platform. In service of that, we
+will explore how to codify workflows and deploy them on the automation
+controller.
 
-== Install RHEL 8 UBI
+== ☑️ Overview
 
-In this lab, we will be using a different Red Hat Enterprise Linux version in my container. 
+First, let’s take a look at the following workflow:
 
-. Verify the host system release 
+Each node represents an action, such as an inventory update, project
+update or the running of a job template. Other options can also be
+specified (see the docs for detail), and each node is linked to one or
+many other nodes. The common practice is to create the workflows inside
+of the automation controller GUI, but with the Collections, it is
+possible to manage these workflows through Ansible Playbooks.
 
-+
-[source,bash]
+=== Structure
+
+To start lets explore how each node is structured in code. Each entity
+in the workflow_nodes list describes a single node. Here is a breakdown
+of what each of the fields in the node represent:
+
+[source,yaml]
 ----
-cat /etc/redhat-release
-----
-+ 
-NOTE: The `bastion` system is Red Hat Enterprise Linux 9, and when you built the previous container, you used the UBI9 image. This means both the image and the container were built off the same Red Hat Enterprise Linux packages. 
-
-. As we did previously in this lab, Use `buildah from` to pull down the Red Hat Enterprise Linux 8 UBI.
-
-+
-[source,bash]
-----
-buildah from registry.access.redhat.com/ubi8/ubi
-----
-
-NOTE: Because you already pulled one image named `ubi-working-container` this one is called `ubi-working-container-1`. 
-
-[#prerequisites]
-== Install Prerequisites
-
-Now that you have a working container, you will use the same process as before installing all the prerequisites, changing config files, and manipulating the contents of this container to be in the desired state.
-
-The software you will install is a JavaScript-based game that runs on a web browser. As before in the lab, use dnf to install software inside the container. 
-
-. Use `buildah run` and install Apache (`httpd`) into the `ubi-working-container-1` container. 
-+
-[source,bash]
-----
-buildah run ubi-working-container-1 -- dnf -y install httpd
+---
+  - identifier: An identifier that is unique within its workflow.
+    related:
+      always_nodes: Dict List of nodes that always execute listed by identifiers
+        - identifier: X
+      failure_nodes: Dict List of nodes that execute on failure listed by identifiers
+      success_nodes: Dict List of nodes that execute on success listed by identifiers
+    unified_job_template:
+      name: Name of Job Template that will be run
+      organization:
+        name: Name of Organization the Job template is in
+      type: Type of node, this is required
+...
 ----
 
-== Enable Service
+The type can be one of job_template, project, inventory_source,
+workflow_approval.
 
-The next thing to do is to use a systemctl to enable the service. The ubi-init provides full systemd service to the container.
-This will start up any of the services that are enabled. 
+==== Inventory Sources
 
-. Enable the `httpd` service using `buildah run`
+Unified Job template descriptions for inventory sources are slightly
+different to the others
 
-+
-[source,bash]
+[source,yaml]
 ----
-buildah run ubi-working-container-1 -- systemctl enable httpd
-----
-
-NOTE: The UBI standard image doesn't have systemd installed on it by default. The `ubi-init` container image does include systemd. Plan accordingly to which image you use to build applications.  
-
-== Explore Source Materials
-
-A GitHub repository has already been synchronized to `/home/devops/clumsy-bird/` This repository contains the configurations for your application.
-
-. Verify the repository is cloned inside the `/home/devops/` directory
-+
-[source,bash]
-----
-cd /home/devops/
+---
+unified_job_template:
+  inventory:
+    organization:
+      name: config_as_code ← Organization that the inventory source is in
+  name: controller_config_source ← Name of inventory source
+  type: inventory_source ← Type
+...
 ----
 
-+
-[source,bash]
-----
-git clone https://github.com/ellisonleao/clumsy-bird
-----
-+
-NOTE: The output states that the software has already been checked out. 
-+
-. Explore the JavaScript contents, index files, and everything else that we need for this web-based JavaScript software.
-+
-[source,bash,role=execute]
-----
-ls clumsy-bird
-----
+Note that the organization is a sub variable of the inventory and is the
+organization that the inventory belongs to, not the workflow.
 
-== Add Source Materials to Container
+==== Approval Nodes
 
-. Now that you have verified the source materials exist, you will put the software inside of my container image using the `buildah copy` command.
-+
-[source,bash]
+Approval nodes do not have organizations
+
+[source,yaml]
 ----
-buildah copy ubi-working-container-1 clumsy-bird /var/www/html
+---
+unified_job_template:
+  description: Approval node to continue job
+  timeout: 900  ← Timeout before the Approval fails
+  type: workflow_approval ← Type
+  name: Approve to config controller ← Name that shows on node
+...
 ----
 
-[#container]
-== Enable Container in Background
+==== Project updates and Job templates
 
-In the previous section of this lab, you ran the game natively through interactive mode. Because you are now building a web application you will need to run the container in the background and access it through a web address. 
+Project updates and Job templates share the same model
 
-. Execute `buildah config` to specify a port and initialize the container. 
-
-+
-[source,bash]
+[source,yaml]
 ----
-buildah config --port 80 --cmd "/usr/sbin/init" ubi-working-container-1
-----
-
-NOTE: The command makes a configuration change to this container. I'm configuring this container to accept connections to its port 80. When the container starts up, it should run the init command, which, in this case, is going to be the Apache daemon right from earlier when I enabled it.
-
-== Commit Container and Deploy
-
-. Now that we have a container in a working configured state, it is time to make that permanent by committing it to a container image called `clumsy-bird`
-+
-[source,bash]
-----
-buildah commit ubi-working-container-1 clumsy-bird
+---
+unified_job_template:
+  name: Demo Project ← Name of the Project or Job Template
+  organization:
+    name: Default ← Organization the Project or Job Template is in
+  type: project ← Type
+...
 ----
 
-. Verify that the image was created with `podman`
-+
-[source,bash]
+Note that the type can be either project or job_template
+
+##Changing the workflow By modifying the variable that represents the
+workflow, we can add additional nodes, remove or remap existing nodes,
+or even change the job template a node runs, amongst other things.
+
+An example of removing a node:
+
+[source,yaml]
 ----
-podman images
-----
-+
-. Run the container Now it's time to run the container. 
-+
-[source,bash]
-----
-podman run -d -p 8500:80 clumsy-bird
+---
+- identifier: Demo Job Template
+  unified_job_template:
+    name: Demo Job Template
+    organization:
+      name: Satellite
+    type: job_template
+  state: absent
+...
 ----
 
-== Verify Application
+It still requires a valid unified job template, but it will delete the
+node from the workflow.
 
-Verify that the application is running by navigating to
+== ☑️ Task 1 - Putting it together
 
-http://bastion.{guid}.example.opentlc.com:8500
+The above instructions are building blocks. Time to put them to use,
+below is the start of the workflow illustrated above. Using what you
+know, recreate it in the controller
 
+[source,yaml]
+----
+---
+workflow_job_templates:
+  - name: Configuration Workflow
+    workflow_nodes:
+      - identifier: Sync Inventory
+        unified_job_template:
+          inventory:
+            name: config_as_code
+            organization:
+              name: config_as_code
+            type: inventory
+          name: controller_config_source
+          type: inventory_source
+        related:
+          always_nodes:
+            - identifier: Configure Hub
+...
+----
+
+Use the following `+playbooks/workflow_config.yml+` playbook to just run
+workflows
+
+[source,yaml]
+----
+---
+- name: Playbook to configure workflows
+  hosts: all
+  vars_files:
+    - "../vault.yml"
+  connection: local
+  roles:
+    - infra.aap_configuration.controller_workflow_job_templates
+...
+----
+
+With this console command using tags:
+
+[source,console]
+----
+ansible-playbook -i inventory.yml -l execution playbooks/workflow_config.yml
+----
+
+Further documentation for creating workflows can be found here: -
+https://github.com/redhat-cop/controller_configuration/tree/devel/roles/workflow_job_templates[workflow_job_templates
+role] -
+https://www.ansible.com/blog/automation-controller-workflow-deployment-as-code[Automation
+controller workflow deployment as code - Ansible Blog]
+
+== ☑️ Task 2 - Exporting an existing workflow
+
+Create the next playbook `+playbooks/export_workflow.yml+`, To extract
+the information from the server about a specific workflow. The
+awx.awx.export or the ansible.controller module can also be used to
+extract other objects from the server as well.
+
+[source,yaml]
+----
+---
+- name: Export Workflow
+  hosts: automationcontroller
+  gather_facts: false
+  environment:
+     CONTROLLER_HOST: "{{ controller_hostname }}"
+     CONTROLLER_USERNAME: "{{ controller_username }}"
+     CONTROLLER_PASSWORD: "{{ controller_password }}"
+     CONTROLLER_VERIFY_SSL: "{{ controller_validate_certs }}"
+
+  tasks:
+    - name: Export workflow job template
+      ansible.controller.export:
+        workflow_job_templates: Configuration Workflow
+      register: export_results
+        delegate_to: localhost
+
+    - debug:
+        var: export_results
+
+    - name: Export workflow job template to file
+      copy:
+        content: "{{ export_results.assets | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
+        dest: group_vars/all/workflow_export.yaml
+...
+
+Once created, run the playbook
+----
+
+Run the playbook with the following command
+
+[source,console]
+----
+ansible-playbook -i inventory.yml -l execution playbooks/export_workflow.yml
+----
+
+Notice that the exported workflow has a lot more meta information that
+was not needed for configuration. Many of these are fields that contain
+options for tweaking how it runs.
+
+== ✅ Done
+
+You've completed the lab, you should now have everything you need to start using configuration as code in your own environment!
