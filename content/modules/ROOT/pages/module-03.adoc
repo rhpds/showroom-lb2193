@@ -1,4 +1,4 @@
-== 👋 Creating an Execution Environment
+== Creating an Execution Environment
 
 In this section we will show you step by step how to build an Execution
 Environment (EE) from code. You will also be publishing this EE to your

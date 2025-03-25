@@ -1,4 +1,4 @@
-== 👋 Using the Collection with Workflows
+== Using the Collection with Workflows
 
 One of the goals of the Automation Controller Collection and the
 infra.controller_configuration collection is to allow users to easily
@@ -6,7 +6,7 @@ create objects in Ansible Automation Platform. In service of that, we
 will explore how to codify workflows and deploy them on the automation
 controller.
 
-== ☑️ Overview
+== Overview
 
 First, let’s take a look at the following workflow:
 
@@ -117,7 +117,7 @@ An example of removing a node:
 It still requires a valid unified job template, but it will delete the
 node from the workflow.
 
-== ☑️ Task 1 - Putting it together
+== Task 1 - Putting it together
 
 The above instructions are building blocks. Time to put them to use,
 below is the start of the workflow illustrated above. Using what you
@@ -173,7 +173,7 @@ role] -
 https://www.ansible.com/blog/automation-controller-workflow-deployment-as-code[Automation
 controller workflow deployment as code - Ansible Blog]
 
-== ☑️ Task 2 - Exporting an existing workflow
+== Task 2 - Exporting an existing workflow
 
 Create the next playbook `+playbooks/export_workflow.yml+`, To extract
 the information from the server about a specific workflow. The
