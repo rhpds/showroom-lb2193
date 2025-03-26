@@ -10,6 +10,8 @@ controller.
 
 First, let’s take a look at the following workflow:
 
+image::module_4/workflow.png[hub task,125%,125%]
+
 Each node represents an action, such as an inventory update, project
 update or the running of a job template. Other options can also be
 specified (see the docs for detail), and each node is linked to one or
@@ -123,6 +125,8 @@ The above instructions are building blocks. Time to put them to use,
 below is the start of the workflow illustrated above. Using what you
 know, recreate it in the controller
 
+image::module_4/workflow.png[hub task,125%,125%]
+
 [source,yaml]
 ----
 ---
@@ -186,26 +190,29 @@ extract other objects from the server as well.
 - name: Export Workflow
   hosts: automationcontroller
   gather_facts: false
+  vars_files:
+    - "../vault.yml"
   environment:
-     CONTROLLER_HOST: "{{ controller_hostname }}"
-     CONTROLLER_USERNAME: "{{ controller_username }}"
-     CONTROLLER_PASSWORD: "{{ controller_password }}"
-     CONTROLLER_VERIFY_SSL: "{{ controller_validate_certs }}"
+    CONTROLLER_HOST: "{{ aap_hostname }}"
+    CONTROLLER_USERNAME: "{{ aap_username }}"
+    CONTROLLER_PASSWORD: "{{ aap_password }}"
+    CONTROLLER_VERIFY_SSL: "{{ aap_validate_certs }}"
 
   tasks:
     - name: Export workflow job template
       ansible.controller.export:
         workflow_job_templates: Configuration Workflow
       register: export_results
-        delegate_to: localhost
+      delegate_to: localhost
 
-    - debug:
+    - name: Show the results
+      ansible.builtin.debug:
         var: export_results
 
     - name: Export workflow job template to file
-      copy:
-        content: "{{ export_results.assets | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
-        dest: group_vars/all/workflow_export.yaml
+      ansible.builtin.copy:
+        content: "{{ export_results | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
+        dest: /home/lab-user/casc_lab/workflow_export.yaml
 ...
 
 Once created, run the playbook
