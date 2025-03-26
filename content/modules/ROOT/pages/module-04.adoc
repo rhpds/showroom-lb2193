@@ -1,4 +1,4 @@
-== 👋 Using the Collection with Workflows
+== Using the Collection with Workflows
 
 One of the goals of the Automation Controller Collection and the
 infra.controller_configuration collection is to allow users to easily
@@ -6,11 +6,11 @@ create objects in Ansible Automation Platform. In service of that, we
 will explore how to codify workflows and deploy them on the automation
 controller.
 
-== ☑️ Overview
+== Overview
 
 First, let’s take a look at the following workflow:
 
-image::module_4/workflow.png[hub task,125%,125%]
+image::module_4/workflow.png[hub task,125%,125%, link=self, window=blank]
 
 Each node represents an action, such as an inventory update, project
 update or the running of a job template. Other options can also be
@@ -25,7 +25,7 @@ To start lets explore how each node is structured in code. Each entity
 in the workflow_nodes list describes a single node. Here is a breakdown
 of what each of the fields in the node represent:
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
   - identifier: An identifier that is unique within its workflow.
@@ -50,7 +50,7 @@ workflow_approval.
 Unified Job template descriptions for inventory sources are slightly
 different to the others
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 unified_job_template:
@@ -69,7 +69,7 @@ organization that the inventory belongs to, not the workflow.
 
 Approval nodes do not have organizations
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 unified_job_template:
@@ -84,7 +84,7 @@ unified_job_template:
 
 Project updates and Job templates share the same model
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 unified_job_template:
@@ -103,7 +103,7 @@ or even change the job template a node runs, amongst other things.
 
 An example of removing a node:
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - identifier: Demo Job Template
@@ -119,15 +119,15 @@ An example of removing a node:
 It still requires a valid unified job template, but it will delete the
 node from the workflow.
 
-== ☑️ Task 1 - Putting it together
+== Task 1 - Putting it together
 
 The above instructions are building blocks. Time to put them to use,
 below is the start of the workflow illustrated above. Using what you
 know, recreate it in the controller
 
-image::module_4/workflow.png[hub task,125%,125%]
+image::module_4/workflow.png[hub task,125%,125%, link=self, window=blank]
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 workflow_job_templates:
@@ -151,7 +151,7 @@ workflow_job_templates:
 Use the following `+playbooks/workflow_config.yml+` playbook to just run
 workflows
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - name: Playbook to configure workflows
@@ -177,14 +177,14 @@ role] -
 https://www.ansible.com/blog/automation-controller-workflow-deployment-as-code[Automation
 controller workflow deployment as code - Ansible Blog]
 
-== ☑️ Task 2 - Exporting an existing workflow
+== Task 2 - Exporting an existing workflow
 
 Create the next playbook `+playbooks/export_workflow.yml+`, To extract
 the information from the server about a specific workflow. The
 awx.awx.export or the ansible.controller module can also be used to
 extract other objects from the server as well.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - name: Export Workflow

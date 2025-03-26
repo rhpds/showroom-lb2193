@@ -28,12 +28,12 @@ Further documentation for those who are interested to learn more see:
 Set the variables to be used in the collections for use. These include hosts, usernames, and other variables that are reused in each role.
 
 Create a file in this folder path
-[source,yaml]
+[source,yaml,role=execute]
 group_vars/all/auth.yml
 
 With the following content:
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 sandbox_id: '###REPLACEME'
 
@@ -71,7 +71,7 @@ Further documentation for those who are interested to learn more see:
 
 Create your inventory file `inventory.yml`, You do not need to replace anything in this file.
 
-[source,yaml]
+[source,yaml,role=execute]
 ---
 all:
   children:
@@ -98,7 +98,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a vault file `vault.yml` and **YOU WILL NEED TO FILL THESE IN** with the provided password for AAP for each variable. Currently they are set to the description of what you should be updating them too.
 
-[source,yaml]
+[source,yaml,role=execute]
 ---
 vault_pass: ###REPLACEME
 aap_password: ###REPLACEME
@@ -139,7 +139,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/organizations.yml`
 
-[source,yaml]
+[source,yaml,role=execute]
 ---
 aap_organizations:
   - name: config_as_code
@@ -156,7 +156,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/teams.yml`
 
-[source,yaml]
+[source,yaml,role=execute]
 ---
 aap_teams:
   - name: config as code team
@@ -174,7 +174,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/users.yml`
 
-[source,yaml]
+[source,yaml,role=execute]
 ---
 aap_user_accounts:
   - username: "{{ aap_service_account_username }}"
@@ -193,7 +193,7 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/hub_repositories.yml` to create the list of community repositories and their remote counterpart.
 
-[source,yaml]
+[source,yaml,role=execute]
 ---
 hub_collection_remotes:
   - name: community-infra
@@ -233,7 +233,7 @@ Further documentation for those who are interested to learn more see:
 
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
-[source,yaml]
+[source,yaml,role=execute]
 ---
 - name: Playbook to configure ansible controller post installation
   hosts: all
@@ -258,7 +258,7 @@ Your folder structure should look like this, check the file structure to
 make sure files are in the right levels. Run the `+tree+` command to
 verify.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 Fix This and input tree output
 ----
@@ -275,8 +275,7 @@ ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
 ```
 While the playbook is running you can go to the Automation Hub tab and peak at the Task Management to see the repository syncing process
 
-image::module_1/hub_task.png[hub task,125%,125%]
-
+image::module_1/hub_task.png[hub task,125%,125%,link=self, window=blank]
 
 [#results]
 == Task 11 - Validate configuration was applied

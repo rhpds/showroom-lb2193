@@ -1,4 +1,4 @@
-== 👋 Creating an Execution Environment
+== Creating an Execution Environment
 
 In this section we will show you step by step how to build an Execution
 Environment (EE) from code. You will also be publishing this EE to your
@@ -19,7 +19,7 @@ your EE image
 which the role will loop over and for each item in this list it will
 create and publish an EE using the provided variables.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 ee_list:
@@ -72,7 +72,7 @@ Further documentation for those who are interested to learn more see:
 Check the file `group_vars/all/execution_environments.yml` and add make sure the `config_as_code` execution environment is there, you can also look in the gui. 
 It should be listed with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_execution_environments:
@@ -93,13 +93,12 @@ Further documentation for those who are interested to learn more see:
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_execution_environments[execution environments role]
 
 
-
 == Task 3 - Create the the Playbook
 === Create a playbook to build an EE
 
 The next step is to create a playbook/file `playbooks/build_ee.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 - name: Playbook to configure execution environments
   hosts: execution

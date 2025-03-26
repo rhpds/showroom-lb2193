@@ -47,14 +47,14 @@ hosts, usernames, and other variables that are reused in each role.
 
 Create a file in this folder path
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 group_vars/all/auth.yml
 ----
 
 With the following content:
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_hostname: "{{ controller_host | default( 'control.' + lookup('ansible.builtin.env', 'INSTRUQT_PARTICIPANT_ID') + '.instruqt.io' )}}"
@@ -89,7 +89,7 @@ about group_vars]
 Create your inventory file `+inventory.yml+`, You do not need to replace
 anything in this file.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 all:
@@ -128,7 +128,7 @@ Create a vault file `+vault.yml+` and *YOU WILL NEED TO FILL THESE IN*
 with the correct passwords for each variable. Currently they are set to
 the description of what you should be updating them too.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 vault_pass: # CHANGE ME !!! the password to decrypt this vault you create this
@@ -187,7 +187,7 @@ infra.ee_utilities.ee_builder
 Note: this we would normally suggest being a small cli only server for
 deploying config as code and running installer/upgrades for AAP
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - name: Playbook to configure execution environments
@@ -228,7 +228,7 @@ your EE image
 which the role will loop over and for each item in this list it will
 create and publish an EE using the provided variables.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ee_list:
   - name: "config_as_code"
@@ -273,7 +273,7 @@ Your folder structure should look like this, check the file structure to
 make sure files are in the right levels. Run the `+tree+` command to
 verify.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
     ├── ansible.cfg
     ├── group_vars

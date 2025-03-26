@@ -23,7 +23,7 @@ with the user account `+ansible+`. It is accessable using
 Create a file `+group_vars/all/settings.yml+` and copy all this into the
 file.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_settings:
@@ -45,7 +45,7 @@ to configure the UI to look like the screenshots Remember you can use
 the `+ah_host+` variable to define the hub. Each image name should look
 like `+{{ ah_host }}/image_name+`
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_execution_environments:
@@ -79,7 +79,7 @@ the variables that will then be useable in a job.
 which the role will loop over and for each item in this list it will
 create custom credential types for use in the controller.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_credential_types:
@@ -151,7 +151,7 @@ Create a file `+group_vars/all/organizations.yml+` and add the required
 information to the list `+controller_organizations+` to configure the UI
 to look like the screenshot
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_organizations:
@@ -171,7 +171,7 @@ to look like the screenshot. Make it to look like the screenshot, but
 make sure to use parameters for the values. DO NOT PASTE YOUR CLEARTEST
 CREDENTIALS!
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_credentials:
@@ -263,7 +263,7 @@ look like the screenshot.
 
 ==== What git project are we pointing at
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_configuration_projects_async_delay: 5
@@ -283,7 +283,7 @@ Create a file `+group_vars/all/inventories.yml+` and add the required
 information to the list `+controller_inventories+` to configure the UI
 to look like the screenshot
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_inventories:
@@ -303,7 +303,7 @@ required information to the list `+controller_inventory_sources+` to
 configure the UI to look like the screenshot *NOTE the inventory file
 name should be just inventory.yml*
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_inventory_sources:
@@ -324,7 +324,7 @@ look like the screenshot
 
 Pay attention to the credentials attached to each job template.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_templates:
@@ -342,7 +342,7 @@ templates role]
 Create a playbook `+playbooks/controller_config.yml+` and copy all this
 into the file.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - name: Playbook to configure ansible controller post installation
