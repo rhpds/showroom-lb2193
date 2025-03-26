@@ -30,7 +30,7 @@ navigator docs]
 Create a file `+group_vars/all/ah_repositories.yml+` to create the list
 of community repositories and their remote counterpart.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 ah_collection_remotes:
@@ -81,7 +81,7 @@ Create a file `+group_vars/all/ah_users.yml+` make sure this user has
 `+is_superuser+` set to `+true+` and their `+password+` is set to
 `+"{{ ah_token_password }}"+`.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 ah_token_username: "ah_token_user"
@@ -113,7 +113,7 @@ config groups]
 Create a playbook `+playbooks/hub_config.yml+` add in the `+user+` role
 name and the `+collection_remote+` role name in the tasks.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - name: Configure private automation hub after installation

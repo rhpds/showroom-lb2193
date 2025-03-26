@@ -11,7 +11,7 @@ help you complete this task.
 Create a file `group_vars/all/settings.yml` and copy all this into the
 file.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_settings:
@@ -30,7 +30,7 @@ Create a file `group_vars/all/execution_environments.yml` and add the
 required information to the list `controller_execution_environments`
 to include a new EE (that we will show how to create with code in the next module) called `config_as_code` with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_execution_environments:
@@ -75,7 +75,7 @@ the variables that will then be useable in a job.
 which the role will loop over and for each item in this list it will
 create custom credential types for use in the controller.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_credential_types:
@@ -144,7 +144,7 @@ Further documentation for those who are interested to learn more see:
 
 Update the file `group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_organizations:
@@ -165,7 +165,7 @@ to look like the screenshot. Make it to look like the screenshot, but
 make sure to use parameters for the values. DO NOT PASTE YOUR CLEARTEST
 CREDENTIALS!
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_credentials:
@@ -259,7 +259,7 @@ look like the screenshot.
 
 NOTE: What git project are we pointing at
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_configuration_projects_async_delay: 5
@@ -280,7 +280,7 @@ Create a file `group_vars/all/inventories.yml` and add the required
 information to the list `controller_inventories` to configure the UI
 to look like the screenshot
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_inventories:
@@ -301,7 +301,7 @@ required information to the list `controller_inventory_sources` to
 configure the UI to look like the screenshot *NOTE the inventory file
 name should be just inventory.yml*
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_inventory_sources:
@@ -323,7 +323,7 @@ look like the screenshot
 
 Pay attention to the credentials attached to each job template.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 controller_templates:
@@ -342,7 +342,7 @@ Further documentation for those who are interested to learn more see:
 
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 - name: Playbook to configure ansible controller post installation
   hosts: all

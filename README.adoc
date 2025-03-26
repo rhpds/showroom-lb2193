@@ -78,7 +78,7 @@ Many modern editors such as Visual Studio Code offer live Asciidoc Preview exten
 You can add links to external content in the convenient "Links" drop-down on the upper-right of the Showroom Summit 2024 UI.
 
 ../content/antora.yml
-[source,yaml]
+[source,yaml,role=execute]
 ----
 asciidoc:
   attributes:
@@ -96,7 +96,7 @@ As a convenience to developers, the Dev Mode Extention (disabled by default) dis
 . Disable/Enable Dev Mode by changing `enabled: true` or `enabled: false`
 +
 .default-site.yml
-[source,yaml]
+[source,yaml,role=execute]
 ----
 extensions:
   - id: dev-mode

@@ -25,7 +25,7 @@ To start lets explore how each node is structured in code. Each entity
 in the workflow_nodes list describes a single node. Here is a breakdown
 of what each of the fields in the node represent:
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
   - identifier: An identifier that is unique within its workflow.
@@ -50,7 +50,7 @@ workflow_approval.
 Unified Job template descriptions for inventory sources are slightly
 different to the others
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 unified_job_template:
@@ -69,7 +69,7 @@ organization that the inventory belongs to, not the workflow.
 
 Approval nodes do not have organizations
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 unified_job_template:
@@ -84,7 +84,7 @@ unified_job_template:
 
 Project updates and Job templates share the same model
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 unified_job_template:
@@ -103,7 +103,7 @@ or even change the job template a node runs, amongst other things.
 
 An example of removing a node:
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - identifier: Demo Job Template
@@ -127,7 +127,7 @@ know, recreate it in the controller
 
 image::module_4/workflow.png[hub task,125%,125%, link=self, window=blank]
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 workflow_job_templates:
@@ -151,7 +151,7 @@ workflow_job_templates:
 Use the following `+playbooks/workflow_config.yml+` playbook to just run
 workflows
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - name: Playbook to configure workflows
@@ -184,7 +184,7 @@ the information from the server about a specific workflow. The
 awx.awx.export or the ansible.controller module can also be used to
 extract other objects from the server as well.
 
-[source,yaml]
+[source,yaml,role=execute]
 ----
 ---
 - name: Export Workflow
