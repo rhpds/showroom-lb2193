@@ -275,8 +275,7 @@ ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
 ```
 While the playbook is running you can go to the Automation Hub tab and peak at the Task Management to see the repository syncing process
 
-image::module_1/hub_task.png[hub task,125%,125%]
-
+image::module_1/hub_task.png[hub task,125%,125%,link=self, window=blank]
 
 [#results]
 == Task 11 - Validate configuration was applied

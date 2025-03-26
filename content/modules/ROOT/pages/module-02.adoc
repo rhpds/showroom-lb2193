@@ -151,7 +151,7 @@ controller_organizations:
 ...
 ----
 
-NOTE: Insert Screenshot with the execution environment supported and galaxy credentials
+image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
@@ -244,7 +244,7 @@ controller_credentials:
 ...
 ----
 
-NOTE: Insert Screenshot with the ah_admin_user_pass credential
+image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
 
 
 Further documentation for those who are interested to learn more see:
@@ -268,7 +268,7 @@ controller_projects:
 ...
 ----
 
-NOTE: Insert Screenshot with the project
+image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
@@ -288,7 +288,7 @@ controller_inventories:
 ...
 ----
 
-NOTE: Insert Screenshot with the inventories
+image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
@@ -331,7 +331,7 @@ controller_templates:
 ...
 ----
 
-NOTE: Insert Screenshot with the job template
+image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
@@ -366,7 +366,6 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
         name: infra.aap_configuration.dispatch
 ...
 ----
-
 
 == Task 11 - Run the playbook
 

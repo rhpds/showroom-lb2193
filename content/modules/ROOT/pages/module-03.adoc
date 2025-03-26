@@ -93,7 +93,6 @@ Further documentation for those who are interested to learn more see:
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_execution_environments[execution environments role]
 
 
-
 == Task 3 - Create the the Playbook
 === Create a playbook to build an EE
 

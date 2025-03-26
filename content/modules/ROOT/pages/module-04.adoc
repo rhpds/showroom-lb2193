@@ -10,7 +10,7 @@ controller.
 
 First, let’s take a look at the following workflow:
 
-image::module_4/workflow.png[hub task,125%,125%]
+image::module_4/workflow.png[hub task,125%,125%, link=self, window=blank]
 
 Each node represents an action, such as an inventory update, project
 update or the running of a job template. Other options can also be
@@ -125,7 +125,7 @@ The above instructions are building blocks. Time to put them to use,
 below is the start of the workflow illustrated above. Using what you
 know, recreate it in the controller
 
-image::module_4/workflow.png[hub task,125%,125%]
+image::module_4/workflow.png[hub task,125%,125%, link=self, window=blank]
 
 [source,yaml]
 ----
