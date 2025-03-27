@@ -16,6 +16,8 @@ pip (excluding ansible)
 * `+collections+` any collections that you would like to be built into
 your EE image
 
+// TODO - I'm not sure the above is actually correct is it? I'm also not 100% clear what we want them to do here. Just copy the below?
+
 which the role will loop over and for each item in this list it will
 create and publish an EE using the provided variables.
 
@@ -72,17 +74,15 @@ Further documentation for those who are interested to learn more see:
 Check the file `group_vars/all/execution_environments.yml` and add make sure the `config_as_code` execution environment is there, you can also look in the gui. 
 It should be listed with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
 
+// TODO - Is it worth just providing the end result here as they are just checking. i.e. we just give them the correct object.
+
 [source,yaml,role=execute]
 ----
 ---
 controller_execution_environments:
-  - name: "supported"
-    image: "{{ aap_hostname }}/ee-supported-rhel8"
-    pull: always
-    credential: cr_ah
-
-  - name: "minimal"
-    image: "{{ aap_hostname }}/ee-minimal-rhel8"
+  <...>
+  - name: "config_as_code"
+    image: "{{ aap_hostname }}/config_as_code"
     pull: always
     credential: cr_ah
 ...
@@ -96,7 +96,7 @@ Further documentation for those who are interested to learn more see:
 == Task 3 - Create the the Playbook
 === Create a playbook to build an EE
 
-The next step is to create a playbook/file `playbooks/build_ee.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
+The next step is to create a playbook/file `playbooks/build_ee.yml` which will run the ee_builder role to create the EE and push it to your Private Automation Hub.
 
 [source,yaml,role=execute]
 ----
@@ -110,10 +110,6 @@ The next step is to create a playbook/file `playbooks/build_ee.yml` that will ca
     - name: Include ee_builder role
       ansible.builtin.include_role:
         name: infra.ee_utilities.ee_builder
-
-    - name: Add Execution Environment
-      ansible.builtin.include_role:
-        name: infra.aap_configuration.controller_execution_environments
 ...
 ----
 
@@ -122,7 +118,7 @@ The next step is to create a playbook/file `playbooks/build_ee.yml` that will ca
 
 Run the playbook pointing to the recently created inventory file and
 limit the run to just execution to build your new custom EE and publish it
-to private automation hub.
+to Private Automation Hub.
 
 [source,console]
 ----

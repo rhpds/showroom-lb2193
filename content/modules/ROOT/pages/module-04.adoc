@@ -1,10 +1,9 @@
 == Using the Collection with Workflows
 
-One of the goals of the Automation Controller Collection and the
-infra.controller_configuration collection is to allow users to easily
+One of the goals of the Automation Platform Collections and the
+infra.aap_configuration collection is to allow users to easily
 create objects in Ansible Automation Platform. In service of that, we
-will explore how to codify workflows and deploy them on the automation
-controller.
+will explore how to codify workflows and deploy them on the Platform.
 
 == Overview
 
@@ -56,9 +55,9 @@ different to the others
 unified_job_template:
   inventory:
     organization:
-      name: config_as_code ← Organization that the inventory source is in
-  name: controller_config_source ← Name of inventory source
-  type: inventory_source ← Type
+      name: config_as_code  # Organization that the inventory source is in
+  name: controller_config_source  # Name of inventory source
+  type: inventory_source  # Type
 ...
 ----
 
@@ -74,9 +73,9 @@ Approval nodes do not have organizations
 ---
 unified_job_template:
   description: Approval node to continue job
-  timeout: 900  ← Timeout before the Approval fails
-  type: workflow_approval ← Type
-  name: Approve to config controller ← Name that shows on node
+  timeout: 900  # Timeout before the Approval fails
+  type: workflow_approval  # Type
+  name: Approve to config controller  # Name that shows on node
 ...
 ----
 
@@ -88,16 +87,17 @@ Project updates and Job templates share the same model
 ----
 ---
 unified_job_template:
-  name: Demo Project ← Name of the Project or Job Template
+  name: Demo Project  # Name of the Project or Job Template
   organization:
-    name: Default ← Organization the Project or Job Template is in
-  type: project ← Type
+    name: Default  # Organization the Project or Job Template is in
+  type: project  # Type
 ...
 ----
 
 Note that the type can be either project or job_template
 
-##Changing the workflow By modifying the variable that represents the
+=== Changing the workflow
+By modifying the variable that represents the
 workflow, we can add additional nodes, remove or remap existing nodes,
 or even change the job template a node runs, amongst other things.
 
@@ -214,11 +214,9 @@ extract other objects from the server as well.
         content: "{{ export_results | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
         dest: /home/lab-user/casc_lab/workflow_export.yaml
 ...
-
-Once created, run the playbook
 ----
 
-Run the playbook with the following command
+Once created, run the playbook with the following command
 
 [source,console]
 ----
@@ -232,3 +230,5 @@ options for tweaking how it runs.
 == ✅ Done
 
 You've completed the lab, you should now have everything you need to start using configuration as code in your own environment!
+
+// TODO - Maybe some extension activities to do other related things (not sure what) or some further reading?
