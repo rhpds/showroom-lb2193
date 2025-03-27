@@ -1,4 +1,4 @@
-== Configuring the Automation controller
+= Configuring the Automation controller
 
 In this section, you will only be given a summary of the objects you
 need to create along with some screenshots of a controller that is
@@ -30,6 +30,8 @@ Create a file `group_vars/all/execution_environments.yml` and add the
 required information to the list `controller_execution_environments`
 to include a new EE (that we will show how to create with code in the next module) called `config_as_code` with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
 
+Create a file `group_vars/all/execution_environments.yml` and add the listing for `controller_execution_environments` below to the file. Augment this with an *additional* execution environment (which we will create in the next module) named `config_as_code`, and which has an image path `{{ aap_hostname }}/config_as_code` and which is set to `always` pull and uses the credential `cr_ah`.
+
 image::module_2/config_ee.png[title="Config Execution Environment",125%,125%, link=self, window=blank]
 image::module_2/minimal_ee.png[title="Minimal Execution Environment",125%,125%, link=self, window=blank]
 image::module_2/supported_ee.png[title="Supported Execution Environment",125%,125%, link=self, window=blank]
@@ -52,7 +54,7 @@ controller_execution_environments:
 
 ----
 
-Note: While you have not created this EE yet it, we have already added a version to hub so this won't fail.
+NOTE: While you have not created this EE yet it, we have already added a version to hub so this won't fail.
 
 Further documentation for those who are interested to learn more see:
 
@@ -169,6 +171,8 @@ to look like the screenshot. Make it to look like the screenshot, but
 make sure to use parameters for the values. DO NOT PASTE YOUR CLEARTEST
 CREDENTIALS!
 
+// TODO - Make this a bit clearer. Are people having to add stuff to their vault? if so we should probably just say that. Let's revisit this and clarify what our intentions are
+
 [source,yaml,role=execute]
 ----
 ---
@@ -261,7 +265,9 @@ Create a file `group_vars/all/projects.yml` and add the required
 information to the list `controller_projects` to configure the UI to
 look like the screenshot.
 
-NOTE: What git project are we pointing at
+NOTE: You will want to refer to the role documentation to determine which options need to be set
+
+// TODO - What git project are we pointing at? Also, perhaps consider providing a table with the values they need to set so they can at least copy/paste URLs etc, but still have to look up the options required
 
 [source,yaml,role=execute]
 ----
@@ -301,10 +307,9 @@ Further documentation for those who are interested to learn more see:
 
 == Task 8 - Create inventory sources
 
-Create a file `group_vars/all/inventory_sources.yml` and add the
+Add to file `group_vars/all/inventories.yml` and a new varible with the
 required information to the list `controller_inventory_sources` to
-configure the UI to look like the screenshot *NOTE the inventory file
-name should be just inventory.yml*
+configure the UI to look like the screenshot
 
 [source,yaml,role=execute]
 ----
@@ -346,6 +351,8 @@ Further documentation for those who are interested to learn more see:
 == Task 10 - Update the Playbook
 === Update the playbook to get the hub token for the configuration
 
+// TODO - explain the intention of what we are doing here
+
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
 [source,yaml,role=execute]
@@ -382,7 +389,7 @@ Run aap_config playbook.
 ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
 ----
 
-if you run into problems, look back at the section that failed, and check the documentation for that role that was linked. If the output was hidden, look for 'Secure logging variables' #TODO# maybe we should just link to the doc on creds or have the var here already?
+if you run into problems, look back at the section that failed, and check the documentation for that role that was linked. If the output was hidden, look for 'Secure logging variables' on the https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[controller_credentials role documentation].
 
 If you run into an error that says "Failed to get token: HTTP Error 401: Unauthorized" while other tasks pass, please rerun the playbook, this is a known issue.
 

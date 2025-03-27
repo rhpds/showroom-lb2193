@@ -1,4 +1,4 @@
-= Building out the basics for config as code.
+= Building out the basics for config as code
 
 [#setup]
 == Task 1 - Setting up the project
@@ -86,7 +86,7 @@ all:
 ...
 ---
 
-NOTE: These are hostnames do not have 'https://' or things will fail
+NOTE: These are hostnames and should not have 'https://', otherwise things will fail
 
 Further documentation for those who are interested to learn more see:
 
@@ -110,10 +110,14 @@ student_account: ###REPLACEME
 NOTE: the easiest way to do this is have all passwords be the provided password.
 
 
-Create a `.password` file **We do not recommend you do this outside of lab environment** put your generated password in this file. Even though we are not committing this file into git because we have it in our ignore list, we do not recommend putting passwords in plain text ever, this is just to simplify/speed up the lab.
+Create a `.password` file and put your generated password in this file.
 
-```text
-Your_Generated_Password_In_.password_File
+NOTE: **We do not recommend you do this outside of lab environment** Even though we are not committing this file into git because we have it in our ignore list, we recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault or AAP's credential vault itself), this process is just to simplify/speed up the lab.
+
+```shell
+cat <<EOF > .password
+my_password
+EOF
 ```
 
 Create an `ansible.cfg` file to point to the .password file.
@@ -170,7 +174,7 @@ Further documentation for those who are interested to learn more see:
 - https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_teams[teams role]
 
 [#service_account]
-== Task 7 - Create a service account
+== Task 7 - Create a local service account user
 
 Create a file `group_vars/all/users.yml`
 
@@ -258,6 +262,7 @@ Your folder structure should look like this, check the file structure to
 make sure files are in the right levels. Run the `+tree+` command to
 verify.
 
+// TODO - Add tree
 [source,yaml,role=execute]
 ----
 Fix This and input tree output
@@ -278,7 +283,7 @@ While the playbook is running you can go to the Automation Hub tab and peak at t
 image::module_1/hub_task.png[hub task,125%,125%,link=self, window=blank]
 
 [#results]
-== Task 11 - Validate configuration was applied
+== Task 12 - Validate configuration was applied
 Navigate to the AAP login with the provided passwords
 
 In each section on the you should find the changes you have made
