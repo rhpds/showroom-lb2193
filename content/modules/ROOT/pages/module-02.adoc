@@ -30,6 +30,10 @@ Create a file `group_vars/all/execution_environments.yml` and add the
 required information to the list `controller_execution_environments`
 to include a new EE (that we will show how to create with code in the next module) called `config_as_code` with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
 
+image::module_2/config_ee.png[title="Config Execution Environment",125%,125%, link=self, window=blank]
+image::module_2/minimal_ee.png[title="Minimal Execution Environment",125%,125%, link=self, window=blank]
+image::module_2/supported_ee.png[title="Supported Execution Environment",125%,125%, link=self, window=blank]
+
 [source,yaml,role=execute]
 ----
 ---
@@ -144,14 +148,14 @@ Further documentation for those who are interested to learn more see:
 
 Update the file `group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot
 
+image::module_2/orgs.png[title="Config as Code Organization",125%,125%, link=self, window=blank]
+
 [source,yaml,role=execute]
 ----
 ---
 controller_organizations:
 ...
 ----
-
-image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
@@ -244,7 +248,7 @@ controller_credentials:
 ...
 ----
 
-image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
+image::module_2/credential.png[title="Credential",125%,125%, link=self, window=blank]
 
 
 Further documentation for those who are interested to learn more see:
@@ -268,7 +272,8 @@ controller_projects:
 ...
 ----
 
-image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
+image::module_2/project.png[title="Project",125%,125%, link=self, window=blank]
+
 
 Further documentation for those who are interested to learn more see:
 
@@ -288,7 +293,7 @@ controller_inventories:
 ...
 ----
 
-image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
+image::module_2/inventories.png[title="Inventory",125%,125%, link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
@@ -309,7 +314,7 @@ controller_inventory_sources:
 ...
 ----
 
-NOTE: Insert Screenshot with the inventory source
+image::module_2/inventory_sources.png[title="Inventory Sources",125%,125%, link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
@@ -331,7 +336,8 @@ controller_templates:
 ...
 ----
 
-image::rhel-logo-black.jpg[title="Sources", link=self, window=blank]
+image::module_2/aap_config_template.png[title="AAP Config Template",125%,125%, link=self, window=blank]
+image::module_2/build_ee_template.png[title="Build EE Template",125%,125%, link=self, window=blank]
 
 Further documentation for those who are interested to learn more see:
 
