@@ -120,7 +120,7 @@ Run the playbook pointing to the recently created inventory file and
 limit the run to just execution to build your new custom EE and publish it
 to Private Automation Hub.
 
-[source,console]
+[source,console,role=execute]
 ----
 ansible-playbook -i inventory.yml -l execution playbooks/build_ee.yml
 ----

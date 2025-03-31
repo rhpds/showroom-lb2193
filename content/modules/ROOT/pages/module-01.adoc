@@ -9,9 +9,10 @@ This requires several prerequisites.
 
 Install our collections and containers.podman using `ansible-galaxy` command. Make sure the versions are correct.
 
-```console
+[source,bash,role=execute]
+----
 ansible-galaxy collection install infra.ee_utilities:4.0.0 infra.aap_configuration:3.1.0 containers.podman:1.16.3 community.general:10.4.0 ansible.hub:1.0.0 ansible.platform:2.5.20250213 ansible.controller:4.6.8
-```
+----
 
 Further documentation for those who are interested to learn more see:
 
@@ -72,6 +73,7 @@ Further documentation for those who are interested to learn more see:
 Create your inventory file `inventory.yml`, You do not need to replace anything in this file.
 
 [source,yaml,role=execute]
+----
 ---
 all:
   children:
@@ -84,7 +86,7 @@ all:
         localhost:
           ansible_connection: local
 ...
----
+----
 
 NOTE: These are hostnames and should not have 'https://', otherwise things will fail
 
@@ -99,13 +101,14 @@ Further documentation for those who are interested to learn more see:
 Create a vault file `vault.yml` and **YOU WILL NEED TO FILL THESE IN** with the provided password for AAP for each variable. Currently they are set to the description of what you should be updating them too.
 
 [source,yaml,role=execute]
+----
 ---
 vault_pass: ###REPLACEME
 aap_password: ###REPLACEME
 aap_service_account_password: ###REPLACEME
 student_account: ###REPLACEME
 ...
-
+----
 
 NOTE: the easiest way to do this is have all passwords be the provided password.
 
@@ -114,24 +117,27 @@ Create a `.password` file and put your generated password in this file.
 
 NOTE: **We do not recommend you do this outside of lab environment** Even though we are not committing this file into git because we have it in our ignore list, we recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault or AAP's credential vault itself), this process is just to simplify/speed up the lab.
 
-```shell
+[source,bash,role=execute]
+----
 cat <<EOF > .password
 my_password
 EOF
-```
+----
 
 Create an `ansible.cfg` file to point to the .password file.
 
-```ini
+[source,bash,role=execute]
+----
 [defaults]
 vault_password_file=.password
-```
+----
 
 Encrypt vault with the password in the .password file
 
-```console
+[source,bash,role=execute]
+----
 ansible-vault encrypt vault.yml
-```
+----
 
 Further documentation for those who are interested to learn more see:
 
@@ -144,10 +150,12 @@ Further documentation for those who are interested to learn more see:
 Create a file `group_vars/all/organizations.yml`
 
 [source,yaml,role=execute]
+----
 ---
 aap_organizations:
   - name: config_as_code
 ...
+----
 
 
 Further documentation for those who are interested to learn more see:
@@ -161,13 +169,14 @@ Further documentation for those who are interested to learn more see:
 Create a file `group_vars/all/teams.yml`
 
 [source,yaml,role=execute]
+----
 ---
 aap_teams:
   - name: config as code team
     description: config as code team
     organization: config_as_code
 ...
-
+----
 
 Further documentation for those who are interested to learn more see:
 
@@ -179,6 +188,7 @@ Further documentation for those who are interested to learn more see:
 Create a file `group_vars/all/users.yml`
 
 [source,yaml,role=execute]
+----
 ---
 aap_user_accounts:
   - username: "{{ aap_service_account_username }}"
@@ -186,7 +196,7 @@ aap_user_accounts:
     is_superuser: true
     state: "present"
 ...
-
+----
 
 Further documentation for those who are interested to learn more see:
 
@@ -198,6 +208,7 @@ Further documentation for those who are interested to learn more see:
 Create a file `group_vars/all/hub_repositories.yml` to create the list of community repositories and their remote counterpart.
 
 [source,yaml,role=execute]
+----
 ---
 hub_collection_remotes:
   - name: community-infra
@@ -224,6 +235,7 @@ hub_collection_repositories:
 hub_configuration_collection_repository_sync_async_delay: 5
 hub_configuration_collection_repository_sync_async_retries: 150
 ---
+----
 
 
 Further documentation for those who are interested to learn more see:
@@ -238,6 +250,7 @@ Further documentation for those who are interested to learn more see:
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
 [source,yaml,role=execute]
+----
 ---
 - name: Playbook to configure ansible controller post installation
   hosts: all
@@ -250,6 +263,7 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
       ansible.builtin.include_role:
         name: infra.aap_configuration.dispatch
 ...
+----
 
 
 Further documentation for those who are interested to learn more see:
@@ -275,9 +289,10 @@ Fix This and input tree output
 The next step is to run the playbook, in order to do the initial setup of everything above on the Platform.
 
 
-```console
+[source,bash,role=execute]
+----
 ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
-```
+----
 While the playbook is running you can go to the Automation Hub tab and peak at the Task Management to see the repository syncing process
 
 image::module_1/hub_task.png[hub task,125%,125%,link=self, window=blank]

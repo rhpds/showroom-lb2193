@@ -166,7 +166,7 @@ workflows
 
 With this console command using tags:
 
-[source,console]
+[source,console,role=execute]
 ----
 ansible-playbook -i inventory.yml -l execution playbooks/workflow_config.yml
 ----
