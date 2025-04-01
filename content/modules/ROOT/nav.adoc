@@ -5,8 +5,3 @@
 * xref:module-03.adoc[3. Build an EE]
 
 * xref:module-04.adoc[4. Create a Workflow]
-
-* xref:instruqt_part1_ee.adoc[1 Test Create ee instruqt]
-* xref:instruqt_part2_hub.adoc[1 Test Create ee instruqt]
-* xref:instruqt_part3_controller.adoc[1 Test Create ee instruqt]
-* xref:instruqt_part4_workflow.adoc[1 Test Create ee instruqt]
