@@ -234,7 +234,7 @@ hub_collection_repositories:
     remote: community-infra
 hub_configuration_collection_repository_sync_async_delay: 5
 hub_configuration_collection_repository_sync_async_retries: 150
----
+...
 ----
 
 
@@ -276,10 +276,22 @@ Your folder structure should look like this, check the file structure to
 make sure files are in the right levels. Run the `+tree+` command to
 verify.
 
-// TODO - Add tree
-[source,yaml,role=execute]
+[source,bash]
 ----
-Fix This and input tree output
+├── ansible.cfg
+├── group_vars
+│   └── all
+│       ├── auth.yml
+│       ├── hub_repositories.yml
+│       ├── organizations.yml
+│       ├── teams.yml
+│       └── users.yml
+├── inventory.yml
+├── playbooks
+│   └── aap_config.yml
+└── vault.yml
+
+3 directories, 9 files
 ----
 
 
