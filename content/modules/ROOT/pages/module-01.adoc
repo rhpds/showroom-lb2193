@@ -112,15 +112,16 @@ student_account: ###REPLACEME
 
 TIP: the easiest way to do this is have all passwords be the provided password.
 
+NOTE: For good configuration as code we recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault)
 
 Create a `.password` file and put your generated password in this file.
 
-IMPORTANT: **We do not recommend you do this outside of lab environment** We recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault or AAP's credential vault itself), this process is just to simplify/speed up the lab.
+IMPORTANT: **We do not recommend using .password files outside of lab environment** This process is just to simplify/speed up the lab.
 
 [source,bash,role=execute]
 ----
 cat <<EOF > .password
-my_password
+###REPLACEME
 EOF
 ----
 
