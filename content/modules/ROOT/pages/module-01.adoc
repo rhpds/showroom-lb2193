@@ -234,7 +234,7 @@ hub_collection_repositories:
     remote: community-infra
 hub_configuration_collection_repository_sync_async_delay: 5
 hub_configuration_collection_repository_sync_async_retries: 150
----
+...
 ----
 
 
