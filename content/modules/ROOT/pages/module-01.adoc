@@ -88,7 +88,7 @@ all:
 ...
 ----
 
-NOTE: These are hostnames and should not have 'https://', otherwise things will fail
+WARNING: These are hostnames and should not have 'https://', otherwise things will fail
 
 Further documentation for those who are interested to learn more see:
 
@@ -115,7 +115,7 @@ NOTE: the easiest way to do this is have all passwords be the provided password.
 
 Create a `.password` file and put your generated password in this file.
 
-NOTE: **We do not recommend you do this outside of lab environment** Even though we are not committing this file into git because we have it in our ignore list, we recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault or AAP's credential vault itself), this process is just to simplify/speed up the lab.
+WARNING: **We do not recommend you do this outside of lab environment** Even though we are not committing this file into git because we have it in our ignore list, we recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault or AAP's credential vault itself), this process is just to simplify/speed up the lab.
 
 [source,bash,role=execute]
 ----
