@@ -1,4 +1,5 @@
-== Using the Collection with Workflows
+// TODO - Use ansible-navigator for the playbooks in this module.
+= Using the Collection with Workflows
 
 One of the goals of the Automation Platform Collections and the
 infra.aap_configuration collection is to allow users to easily
@@ -232,3 +233,6 @@ options for tweaking how it runs.
 You've completed the lab, you should now have everything you need to start using configuration as code in your own environment!
 
 // TODO - Maybe some extension activities to do other related things (not sure what) or some further reading?
+== Further Reading
+- https://github.com/redhat-cop/aap_configuration_template[AAP Configuration Template]
+- 

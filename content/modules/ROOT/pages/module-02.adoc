@@ -182,9 +182,9 @@ controller_credentials:
     organization: config_as_code
     description: aap admin account
     inputs:
-      host: "{{ controller_hostname }}"
-      username: "{{ controller_username }}"
-      password: "{{ controller_password }}"
+      host: "{{ aap_hostname }}"
+      username: "{{ aap_username }}"
+      password: "{{ aap_password }}"
       verify_ssl: false
 
   - name: ah_token_user
@@ -351,7 +351,7 @@ Further documentation for those who are interested to learn more see:
 == Task 10 - Update the Playbook
 === Update the playbook to get the hub token for the configuration
 
-// TODO - explain the intention of what we are doing here
+We need to create a token from Automation Hub so that we can provide it to the Platform for the collection syncing to take place.
 
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
@@ -367,7 +367,7 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
     - name: Authenticate and get an API token from Automation Hub
       ansible.hub.ah_token:
         ah_host: "{{ aap_hostname }}"
-        ah_username: "{{ aap_username  }}"
+        ah_username: "{{ aap_username }}"
         ah_password: "{{ aap_password }}"
         ah_path_prefix: 'galaxy'  # this is for private automation hub
         ah_verify_ssl: false

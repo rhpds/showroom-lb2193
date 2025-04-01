@@ -1,25 +1,25 @@
-== Creating an Execution Environment
+= Creating an Execution Environment
 
 In this section we will show you step by step how to build an Execution
 Environment (EE) from code. You will also be publishing this EE to your
 own private automation hub which you will use in the rest of the tasks.
 
+From that point onwards we will be able to configure the Platform using this execution environment which has all the required dependencies included. We will then make use of ansible-navigator as our tooling to run the configuration playbooks from then on.
+
 == Task 1 - Create our EE Definition
 
 Create a file `+group_vars/all/ah_ee_list.yml+` where we will create a
-list called `+ee_list+` that has 4 variables per item which are:
+list called `+ee_list+` that has 4 key things to set per item which are:
 
 * `+name+` this is required and will be what the EE image will be called
-* `+bindep+` this is any system packages that would be needed
+* `+system+` this is any system packages that would be needed. Set under dependencies.
 * `+python+` these are any python modules that need to be added through
-pip (excluding ansible)
-* `+collections+` any collections that you would like to be built into
-your EE image
-
-// TODO - I'm not sure the above is actually correct is it? I'm also not 100% clear what we want them to do here. Just copy the below?
+pip (excluding ansible). Set under dependencies.
+* `+galaxy+` any collections that you would like to be built into
+your EE image. Set under dependencies.
 
 which the role will loop over and for each item in this list it will
-create and publish an EE using the provided variables.
+create and publish an EE using the provided variables. Take the example below and use this in your code.
 
 [source,yaml,role=execute]
 ----
@@ -71,10 +71,8 @@ Further documentation for those who are interested to learn more see:
 
 == Task 2 - Double check your Execution Environments
 
-Check the file `group_vars/all/execution_environments.yml` and add make sure the `config_as_code` execution environment is there, you can also look in the gui. 
+Check the file `group_vars/all/execution_environments.yml` and add make sure the `config_as_code` execution environment is there, you can also look in the gui.
 It should be listed with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
-
-// TODO - Is it worth just providing the end result here as they are just checking. i.e. we just give them the correct object.
 
 [source,yaml,role=execute]
 ----
