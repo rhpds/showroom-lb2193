@@ -42,7 +42,7 @@ of what each of the fields in the node represent:
 ...
 ----
 
-The type can be one of job_template, project, inventory_source,
+NOTE: The type can be one of job_template, project, inventory_source,
 workflow_approval.
 
 ==== Inventory Sources
@@ -62,7 +62,7 @@ unified_job_template:
 ...
 ----
 
-Note that the organization is a sub variable of the inventory and is the
+NOTE: That the organization is a sub variable of the inventory and is the
 organization that the inventory belongs to, not the workflow.
 
 ==== Approval Nodes
@@ -95,7 +95,7 @@ unified_job_template:
 ...
 ----
 
-Note that the type can be either project or job_template
+NOTE: That the type can be either project or job_template
 
 === Changing the workflow
 By modifying the variable that represents the
@@ -117,7 +117,7 @@ An example of removing a node:
 ...
 ----
 
-It still requires a valid unified job template, but it will delete the
+WARNING: It still requires a valid unified job template, but it will delete the
 node from the workflow.
 
 == Task 1 - Putting it together
@@ -172,11 +172,9 @@ With this console command using tags:
 ansible-playbook -i inventory.yml -l execution playbooks/workflow_config.yml
 ----
 
-Further documentation for creating workflows can be found here: -
-https://github.com/redhat-cop/controller_configuration/tree/devel/roles/workflow_job_templates[workflow_job_templates
-role] -
-https://www.ansible.com/blog/automation-controller-workflow-deployment-as-code[Automation
-controller workflow deployment as code - Ansible Blog]
+Further documentation for creating workflows can be found here:
+* https://github.com/redhat-cop/controller_configuration/tree/devel/roles/workflow_job_templates[workflow_job_templates role]
+* https://www.ansible.com/blog/automation-controller-workflow-deployment-as-code[Automation controller workflow deployment as code - Ansible Blog]
 
 == Task 2 - Exporting an existing workflow
 
@@ -224,7 +222,7 @@ Once created, run the playbook with the following command
 ansible-playbook -i inventory.yml -l execution playbooks/export_workflow.yml
 ----
 
-Notice that the exported workflow has a lot more meta information that
+NOTE: Notice that the exported workflow has a lot more meta information that
 was not needed for configuration. Many of these are fields that contain
 options for tweaking how it runs.
 
@@ -232,7 +230,5 @@ options for tweaking how it runs.
 
 You've completed the lab, you should now have everything you need to start using configuration as code in your own environment!
 
-// TODO - Maybe some extension activities to do other related things (not sure what) or some further reading?
 == Further Reading
-- https://github.com/redhat-cop/aap_configuration_template[AAP Configuration Template]
-- 
+* https://github.com/redhat-cop/aap_configuration_template[AAP Configuration Template]

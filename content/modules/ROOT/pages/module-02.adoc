@@ -168,10 +168,8 @@ Further documentation for those who are interested to learn more see:
 Create a file `group_vars/all/credentials.yml` and add the required
 information to the list `controller_credentials` to configure the UI
 to look like the screenshot. Make it to look like the screenshot, but
-make sure to use parameters for the values. DO NOT PASTE YOUR CLEARTEST
-CREDENTIALS!
-
-// TODO - Make this a bit clearer. Are people having to add stuff to their vault? if so we should probably just say that. Let's revisit this and clarify what our intentions are
+make sure to use parameters for the values. DO NOT PASTE YOUR PASSWORD 
+IN CLEARTEXT FOR CREDENTIALS!
 
 [source,yaml,role=execute]
 ----
@@ -187,35 +185,35 @@ controller_credentials:
       password: "{{ aap_password }}"
       verify_ssl: false
 
-  - name: ah_token_user
+  - name: hub_service_account
     credential_type: automation_hub
     organization: config_as_code
     description: automation hub api account
     inputs:
       hostname: "{{ aap_hostname }}"
-      username: "{{ ah_token_username }}"
+      username: "{{ aap_service_account_username }}"
       token: "{{ ah_token }}"
       verify_ssl: false
 
-  - name: ah_certified
+  - name: hub_certified
     credential_type: Ansible Galaxy/Automation Hub API Token
     organization: config_as_code
     inputs:
-      url: "https://{{ aap_hostname }}/api/galaxy/content/rh-certified/"
+      url: "https://{{ aap_hostname }}/pulp_ansible/galaxy/rh-certified/"
       token: "{{ ah_token }}"
 
-  - name: ah_published
+  - name: hub_published
     credential_type: Ansible Galaxy/Automation Hub API Token
     organization: config_as_code
     inputs:
-      url: "https://{{ aap_hostname }}/api/galaxy/content/published/"
+      url: "https://{{ aap_hostname }}/pulp_ansible/galaxy/published/"
       token: "{{ ah_token }}"
 
-  - name: community-infra-repo
+  - name: hub_community_infra_repo
     credential_type: Ansible Galaxy/Automation Hub API Token
     organization: config_as_code
     inputs:
-      url: "https://{{ aap_hostname }}/api/galaxy/content/community-infra-repo/"
+      url: "https://{{ aap_hostname }}/pulp_ansible/galaxy/community-infra-repo/"
       token: "{{ ah_token }}"
 
   - name: cr_ah
@@ -226,22 +224,6 @@ controller_credentials:
       username: "{{ ah_username }}"
       password: "{{ ah_password }}"
       verify_ssl: false
-
-  - name: root
-    credential_type: Machine
-    organization: config_as_code
-    description: local password
-    inputs:
-      username: student
-      password: "{{ machine_pass }}"
-
-  - name: github
-    credential_type: Source Control
-    organization: config_as_code
-    description: git
-    inputs:
-      username: "{{ student_account }}"
-      password: "{{ machine_pass }}"
 
   - name: vault
     credential_type: Vault
@@ -389,9 +371,9 @@ Run aap_config playbook.
 ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
 ----
 
-if you run into problems, look back at the section that failed, and check the documentation for that role that was linked. If the output was hidden, look for 'Secure logging variables' on the https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[controller_credentials role documentation].
+If you run into problems, look back at the section that failed, and check the documentation for that role that was linked. If the output was hidden, look for 'Secure logging variables' on the https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[controller_credentials role documentation].
 
-If you run into an error that says "Failed to get token: HTTP Error 401: Unauthorized" while other tasks pass, please rerun the playbook, this is a known issue.
+TIP: If you run into an error that says "Failed to get token: HTTP Error 401: Unauthorized" while other tasks pass, please rerun the playbook, this is a known issue.
 
 == Task 12 - See the Results
 

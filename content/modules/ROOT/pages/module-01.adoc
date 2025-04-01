@@ -59,7 +59,7 @@ ee_validate_certs: false
 ----
 
 
-NOTE: `sandbox_id` value needs to be inside quotes or you will get an error saying: 'an only concatenate str (not \"int\") to str'
+WARNING: `sandbox_id` value needs to be inside quotes or you will get an error saying: 'an only concatenate str (not \"int\") to str'
 
 Further documentation for those who are interested to learn more see:
 
@@ -110,12 +110,12 @@ student_account: ###REPLACEME
 ...
 ----
 
-NOTE: the easiest way to do this is have all passwords be the provided password.
+TIP: the easiest way to do this is have all passwords be the provided password.
 
 
 Create a `.password` file and put your generated password in this file.
 
-WARNING: **We do not recommend you do this outside of lab environment** Even though we are not committing this file into git because we have it in our ignore list, we recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault or AAP's credential vault itself), this process is just to simplify/speed up the lab.
+IMPORTANT: **We do not recommend you do this outside of lab environment** We recommend retrieving passwords for secure systems from secret management systems (such as Hashicorp Vault or AAP's credential vault itself), this process is just to simplify/speed up the lab.
 
 [source,bash,role=execute]
 ----
@@ -160,7 +160,7 @@ aap_organizations:
 
 Further documentation for those who are interested to learn more see:
 
-- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_organizations[organizations role]
+* https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_organizations[organizations role]
 
 
 [#team setup]
@@ -180,7 +180,7 @@ aap_teams:
 
 Further documentation for those who are interested to learn more see:
 
-- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_teams[teams role]
+* https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_teams[teams role]
 
 [#service_account]
 == Task 7 - Create a local service account user
@@ -200,7 +200,7 @@ aap_user_accounts:
 
 Further documentation for those who are interested to learn more see:
 
-- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_users[users role]
+* https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/gateway_users[users role]
 
 [#repositories]
 == Task 8 - Create Collection Repositories and Remotes
@@ -240,12 +240,11 @@ hub_configuration_collection_repository_sync_async_retries: 150
 
 Further documentation for those who are interested to learn more see:
 
-- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_repository[hub collection repository role]
-- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_remote[hub collection remote role]
+* https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_repository[hub collection repository role]
+* https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/hub_collection_remote[hub collection remote role]
 
 [#playbook_create]
 == Task 9 - Create a playbook to apply the configuration
-
 
 The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
@@ -268,7 +267,7 @@ The next step is to create a playbook/file `playbooks/aap_config.yml` that will 
 
 Further documentation for those who are interested to learn more see:
 
-- https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/dispatch[Dispatch role]
+* https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/dispatch[Dispatch role]
 
 == Task 10 - Check your paths
 
@@ -278,6 +277,7 @@ verify.
 
 [source,bash]
 ----
+.
 ├── ansible.cfg
 ├── group_vars
 │   └── all
