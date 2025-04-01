@@ -276,7 +276,7 @@ Your folder structure should look like this, check the file structure to
 make sure files are in the right levels. Run the `+tree+` command to
 verify.
 
-[source,yaml,role=execute]
+[source,bash]
 ----
 ├── ansible.cfg
 ├── group_vars
