@@ -4,7 +4,7 @@ In this section we will show you step by step how to build an Execution
 Environment (EE) from code. You will also be publishing this EE to your
 own private automation hub which you will use in the rest of the tasks.
 
-From that point onwards we will be able to configure the Platform using this execution environment which has all the required dependencies included. We will then make use of ansible-navigator as our tooling to run the configuration playbooks from then on.
+NOTE: From that point onwards we will be able to configure the Platform using this execution environment which has all the required dependencies included. We will then make use of ansible-navigator as our tooling to run the configuration playbooks from then on.
 
 == Task 1 - Create our EE Definition
 
