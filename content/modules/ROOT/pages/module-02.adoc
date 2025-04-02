@@ -245,7 +245,11 @@ Further documentation for those who are interested to learn more see:
 
 Create a file `group_vars/all/projects.yml` and add the required
 information to the list `controller_projects` to configure the UI to
-look like the screenshot.
+look like the screenshot. The project you want to use is
+
+----
+https://github.com/redhat-cop/aap_configuration_template
+----
 
 NOTE: You will want to refer to the role documentation to determine which options need to be set
 
