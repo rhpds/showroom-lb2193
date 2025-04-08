@@ -144,24 +144,7 @@ Further documentation for those who are interested to learn more see:
 
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credential_types[credential types role]
 
-== Task 4 - Create organizations
-
-Update the file `group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot
-
-image::module_2/orgs.png[title="Config as Code Organization",125%,125%, link=self, window=blank]
-
-[source,yaml,role=execute]
-----
----
-controller_organizations:
-...
-----
-
-Further documentation for those who are interested to learn more see:
-
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_organizations[organizations role]
-
-== Task 5 - Create credentials
+== Task 4 - Create credentials
 
 Create a file `group_vars/all/credentials.yml` and add the required
 information to the list `controller_credentials` to configure the UI
@@ -207,6 +190,13 @@ controller_credentials:
       url: "https://{{ aap_hostname }}/pulp_ansible/galaxy/published/"
       token: "{{ ah_token }}"
 
+  - name: hub_community
+    credential_type: Ansible Galaxy/Automation Hub API Token
+    organization: config_as_code
+    inputs:
+      url: "https://{{ aap_hostname }}/pulp_ansible/galaxy/community/"
+      token: "{{ ah_token }}"
+
   - name: hub_community_infra_repo
     credential_type: Ansible Galaxy/Automation Hub API Token
     organization: config_as_code
@@ -219,8 +209,8 @@ controller_credentials:
     organization: config_as_code
     inputs:
       host: "{{ aap_hostname }}"
-      username: "{{ ah_username }}"
-      password: "{{ ah_password }}"
+      username: "{{ aap_username }}"
+      password: "{{ aap_password }}"
       verify_ssl: false
 
   - name: vault
@@ -238,6 +228,23 @@ image::module_2/credential.png[title="Credential",125%,125%, link=self, window=b
 Further documentation for those who are interested to learn more see:
 
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[credentials role]
+
+== Task 5 - Create organizations
+
+Update the file `group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot. Here we are adding the credentials that we created above to the Organization so we can pull collections from Automation Hub.
+
+image::module_2/orgs.png[title="Config as Code Organization",125%,125%, link=self, window=blank]
+
+[source,yaml,role=execute]
+----
+---
+controller_organizations:
+...
+----
+
+Further documentation for those who are interested to learn more see:
+
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_organizations[organizations role]
 
 == Task 6 - Create projects
 
