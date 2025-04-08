@@ -219,7 +219,7 @@ Once created, run the playbook with the following command
 
 [source,console]
 ----
-ansible-playbook -i inventory.yml -l execution playbooks/export_workflow.yml
+ansible-playbook -i inventory.yml -l control playbooks/export_workflow.yml
 ----
 
 NOTE: Notice that the exported workflow has a lot more meta information that
