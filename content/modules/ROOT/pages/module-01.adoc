@@ -6,8 +6,9 @@
 In this lab, you will be creating configuration files in order to set a state on the Ansible Automation Platform.
 This requires several prerequisites.
 
+Open up the terminal in the window on the right by going to the menu, use the Terminal > New Terminal
 
-Install our collections and containers.podman using `ansible-galaxy` command. Make sure the versions are correct.
+In the terminal, install our collections and containers.podman using `ansible-galaxy` command. Make sure the versions are correct.
 
 [source,bash,role=execute]
 ----
