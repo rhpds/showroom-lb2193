@@ -8,8 +8,7 @@ help you complete this task.
 
 == Task 1 - Configure settings
 
-Create a file `group_vars/all/settings.yml` and copy all this into the
-file.
+- Create a file `/home/lab-user/casc_lab/group_vars/all/settings.yml` with the below content.
 
 [source,yaml,role=execute]
 ----
@@ -20,14 +19,13 @@ controller_settings:
 ...
 ----
 
-Further documentation for those who are interested to learn more see:
+Further documentation are provided below for those who are interested to learn more:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_settings[settings role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_settings[Settings role,window=_blank]
 
 == Task 2 - Configure Execution Environments
 
-Create a file `group_vars/all/execution_environments.yml` and add the
-required information to the list `controller_execution_environments`
+Create a file `/home/lab-user/casc_lab/group_vars/all/execution_environments.yml` and add the required information to the list `controller_execution_environments`
 to include a new EE (that we will show how to create with code in the next module) called `config_as_code` with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
 
 image::module_2/config_ee.png[title="Config Execution Environment",125%,125%, link=self, window=blank]
@@ -56,11 +54,11 @@ NOTE: While you have not created this EE yet it, we have already added a version
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_execution_environments[execution environments role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_execution_environments[Execution Environments role,window=_blank]
 
 == Task 3 - Create credential types
 
-Create a file `group_vars/all/credential_types.yml` where we will
+Create a file `/home/lab-user/casc_lab/group_vars/all/credential_types.yml` where we will
 create a list called `controller_credential_types` that has 5
 variables per item which are:
 
@@ -142,11 +140,11 @@ controller_credential_types:
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credential_types[credential types role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credential_types[Credential types role,window=_blank]
 
 == Task 4 - Create credentials
 
-Create a file `group_vars/all/credentials.yml` and add the required
+Create a file `/home/lab-user/casc_lab/group_vars/all/credentials.yml` and add the required
 information to the list `controller_credentials` to configure the UI
 to look like the screenshot. Make it to look like the screenshot, but
 make sure to use parameters for the values. DO NOT PASTE YOUR PASSWORD 
@@ -227,11 +225,11 @@ image::module_2/credential.png[title="Credential",125%,125%, link=self, window=b
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[credentials role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[Credentials role,window=_blank]
 
 == Task 5 - Create organizations
 
-Update the file `group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot. Here we are adding the credentials that we created above to the Organization so we can pull collections from Automation Hub.
+Update the file `/home/lab-user/casc_lab/group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot. Here we are adding the credentials that we created above to the Organization so we can pull collections from Automation Hub.
 
 image::module_2/orgs.png[title="Config as Code Organization",125%,125%, link=self, window=blank]
 
@@ -244,11 +242,11 @@ controller_organizations:
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_organizations[organizations role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_organizations[Organizations role,window=_blank]
 
 == Task 6 - Create projects
 
-Create a file `group_vars/all/projects.yml` and add the required
+Create a file `/home/lab-user/casc_lab/group_vars/all/projects.yml` and add the required
 information to the list `controller_projects` to configure the UI to
 look like the screenshot. The project you want to use is
 
@@ -269,12 +267,12 @@ controller_projects:
 ...
 ----
 
-image::module_2/project.png[title="Project",125%,125%, link=self, window=blank]
+image::module_2/project.png[title="Project",125%,125%, link=self, window=_blank]
 
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_projects[projects role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_projects[Projects role,window=_blank]
 
 == Task 7 - Create inventories
 
@@ -290,17 +288,15 @@ controller_inventories:
 ...
 ----
 
-image::module_2/inventories.png[title="Inventory",125%,125%, link=self, window=blank]
+image::module_2/inventories.png[title="Inventory",125%,125%, link=self, window=_blank]
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventories[inventories role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventories[Inventories role,window=_blank]
 
 == Task 8 - Create inventory sources
 
-Add to file `group_vars/all/inventories.yml` and a new variable with the
-required information to the list `controller_inventory_sources` to
-configure the UI to look like the screenshot
+Add to file `/home/lab-user/casc_lab/group_vars/all/inventories.yml` and a new variable with the required information to the list `controller_inventory_sources` to configure the UI to look like the screenshot
 
 [source,yaml,role=execute]
 ----
@@ -310,17 +306,16 @@ controller_inventory_sources:
 ...
 ----
 
-image::module_2/inventory_sources.png[title="Inventory Sources",125%,125%, link=self, window=blank]
+image::module_2/inventory_sources.png[title="Inventory Sources",125%,125%, link=self, window=_blank]
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventory_sources[inventory sources role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventory_sources[Inventory sources role,window=_blank]
 
 == Task 9 - Create job_templates
 
-Create a file `group_vars/all/job_templates.yml` and add the required
-information to the list `controller_templates` to configure the UI to
-look like the screenshot
+Create a file `/home/lab-user/casc_lab/group_vars/all/job_templates.yml` and add the required
+information to the list `controller_templates` to configure the UI to like the screenshot. 
 
 Pay attention to the credentials attached to each job template.
 
@@ -332,19 +327,19 @@ controller_templates:
 ...
 ----
 
-image::module_2/aap_config_template.png[title="AAP Config Template",125%,125%, link=self, window=blank]
-image::module_2/build_ee_template.png[title="Build EE Template",125%,125%, link=self, window=blank]
+image::module_2/aap_config_template.png[title="AAP Config Template",125%,125%, link=self, window=_blank]
+image::module_2/build_ee_template.png[title="Build EE Template",125%,125%, link=self, window=_blank]
 
 Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_job_templates[job templates role]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_job_templates[Job templates role,window=_blank]
 
 == Task 10 - Update the Playbook
 === Update the playbook to get the hub token for the configuration
 
 We need to create a token from Automation Hub so that we can provide it to the Platform for the collection syncing to take place.
 
-The next step is to create a playbook/file `playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
+The next step is to create a playbook/file `/home/lab-user/casc_lab/playbooks/aap_config.yml` that will call the aap_configuration dispatch role which will apply all provided configurations in the order that they need to be created.
 
 [source,yaml,role=execute]
 ----
@@ -391,5 +386,4 @@ controller and see all the changes.
 
 == ✅ Next Challenge
 
-Press the `Next` button below to go to the next challenge once you’ve
-completed the tasks.
+Once you’ve completed the above tasks we will move towards building `Execution Environment`. 
