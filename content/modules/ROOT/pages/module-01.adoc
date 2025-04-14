@@ -75,7 +75,7 @@ all:
     automationcontroller:
       hosts:
         control:
-          ansible_host: "{{ aap_hostname }}"
+          ansible_host: "{{ aap_hostname | regex_replace('^https://', '')  }}"
     execution:
       hosts:
         localhost:
