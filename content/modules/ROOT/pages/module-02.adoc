@@ -18,8 +18,8 @@ controller_settings:
     GALAXY_IGNORE_CERTS: true
 ...
 ----
-+
-Further documentation are provided below for those who are interested to learn more:
+
+- Further documentation are provided below for those who are interested to learn more:
 
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_settings[Settings role,window=_blank]
 
@@ -50,7 +50,9 @@ controller_execution_environments:
 +
 ----
 NOTE: While you have not created this EE yet it, we have already added a version to hub so this won't fail.
-Further documentation for those who are interested to learn more see:
+
+- Further documentation for those who are interested to learn more see:
++
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_execution_environments[Execution Environments role,window=_blank]
 
 == Task 3 - Create credential types
@@ -134,9 +136,9 @@ controller_credential_types:
         template.cert_file: !unsafe '{{ priv_key }}'
 ...
 ----
-+
-Further documentation for those who are interested to learn more see:
 
+- Further documentation for those who are interested to learn more see:
++
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credential_types[Credential types role,window=_blank]
 
 == Task 4 - Create credentials
@@ -218,9 +220,9 @@ controller_credentials:
 ----
 +
 image::module_2/credential.png[title="Credential",125%,125%, link=self, window=blank]
-+
-Further documentation for those who are interested to learn more see:
 
+- Further documentation for those who are interested to learn more see:
++
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[Credentials role,window=_blank]
 
 == Task 5 - Create organizations
@@ -236,7 +238,7 @@ controller_organizations:
 ...
 ----
 
-Further documentation for those who are interested to learn more see:
+- Further documentation for those who are interested to learn more see:
 
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_organizations[Organizations role,window=_blank]
 
@@ -265,9 +267,8 @@ controller_projects:
 +
 image::module_2/project.png[title="Project",125%,125%, link=self, window=_blank]
 
+- Further documentation for those who are interested to learn more see:
 +
-Further documentation for those who are interested to learn more see:
-
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_projects[Projects role,window=_blank]
 
 == Task 7 - Create inventories
@@ -284,8 +285,8 @@ controller_inventories:
 ----
 +
 image::module_2/inventories.png[title="Inventory",125%,125%, link=self, window=_blank]
-+
-Further documentation for those who are interested to learn more see:
+
+- Further documentation for those who are interested to learn more see:
 
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventories[Inventories role,window=_blank]
 
@@ -301,9 +302,9 @@ controller_inventory_sources:
 ----
 +
 image::module_2/inventory_sources.png[title="Inventory Sources",125%,125%, link=self, window=_blank]
-+
-Further documentation for those who are interested to learn more see:
 
+- Further documentation for those who are interested to learn more see:
++
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_inventory_sources[Inventory sources role,window=_blank]
 
 == Task 9 - Create job_templates
@@ -324,8 +325,8 @@ controller_templates:
 image::module_2/aap_config_template.png[title="AAP Config Template",125%,125%, link=self, window=_blank]
 image::module_2/build_ee_template.png[title="Build EE Template",125%,125%, link=self, window=_blank]
 
-Further documentation for those who are interested to learn more see:
-
+- Further documentation for those who are interested to learn more see:
++
 * https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_job_templates[Job templates role,window=_blank]
 
 == Task 10 - Update the Playbook
@@ -368,8 +369,8 @@ The next step is to create a playbook/file `/home/lab-user/casc_lab/playbooks/aa
 ----
 ansible-playbook playbooks/aap_config.yml -i inventory.yml -l execution
 ----
-+
-If you run into problems, look back at the section that failed, and check the documentation for that role that was linked. If the output was hidden, look for 'Secure logging variables' on the https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[controller_credentials role documentation].
+
+- If you run into problems, look back at the section that failed, and check the documentation for that role that was linked. If the output was hidden, look for 'Secure logging variables' on the https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_credentials[controller_credentials role documentation].
 
 TIP: If you run into an error that says "Failed to get token: HTTP Error 401: Unauthorized" while other tasks pass, please rerun the playbook, this is a known issue.
 
