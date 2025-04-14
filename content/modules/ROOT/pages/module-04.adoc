@@ -12,18 +12,11 @@ First, let’s take a look at the following workflow:
 
 image::module_4/workflow.png[hub task,125%,125%, link=self, window=blank]
 
-Each node represents an action, such as an inventory update, project
-update or the running of a job template. Other options can also be
-specified (see the docs for detail), and each node is linked to one or
-many other nodes. The common practice is to create the workflows inside
-of the automation controller GUI, but with the Collections, it is
-possible to manage these workflows through Ansible Playbooks.
+Each node represents an action, such as an inventory update, project update or the running of a job template. Other options can also be specified (see the docs for detail), and each node is linked to one or many other nodes. The common practice is to create the workflows inside of the automation controller GUI, but with the Collections, it is possible to manage these workflows through Ansible Playbooks.
 
 === Structure
 
-To start lets explore how each node is structured in code. Each entity
-in the workflow_nodes list describes a single node. Here is a breakdown
-of what each of the fields in the node represent:
+To start lets explore how each node is structured in code. Each entity in the workflow_nodes list describes a single node. Here is a breakdown of what each of the fields in the node represent:
 
 [source,yaml,role=execute]
 ----
@@ -42,13 +35,11 @@ of what each of the fields in the node represent:
 ...
 ----
 
-NOTE: The type can be one of job_template, project, inventory_source,
-workflow_approval.
+NOTE: The type can be one of job_template, project, inventory_source, workflow_approval.
 
 ==== Inventory Sources
 
-Unified Job template descriptions for inventory sources are slightly
-different to the others
+Unified Job template descriptions for inventory sources are slightly different to the others
 
 [source,yaml,role=execute]
 ----
@@ -62,8 +53,7 @@ unified_job_template:
 ...
 ----
 
-NOTE: That the organization is a sub variable of the inventory and is the
-organization that the inventory belongs to, not the workflow.
+NOTE: That the organization is a sub variable of the inventory and is the organization that the inventory belongs to, not the workflow.
 
 ==== Approval Nodes
 
@@ -98,9 +88,7 @@ unified_job_template:
 NOTE: That the type can be either project or job_template
 
 === Changing the workflow
-By modifying the variable that represents the
-workflow, we can add additional nodes, remove or remap existing nodes,
-or even change the job template a node runs, amongst other things.
+By modifying the variable that represents the workflow, we can add additional nodes, remove or remap existing nodes, or even change the job template a node runs, amongst other things.
 
 An example of removing a node:
 
@@ -117,17 +105,14 @@ An example of removing a node:
 ...
 ----
 
-WARNING: It still requires a valid unified job template, but it will delete the
-node from the workflow.
+WARNING: It still requires a valid unified job template, but it will delete the node from the workflow.
 
 == Task 1 - Putting it together
 
-The above instructions are building blocks. Time to put them to use,
-below is the start of the workflow illustrated above. Using what you
-know, recreate it in the controller
-
+- The above instructions are building blocks. Time to put them to use, below is the start of the workflow illustrated above. Using what you know, recreate it in the controller
++
 image::module_4/workflow.png[hub task,125%,125%, link=self, window=blank]
-
++
 [source,yaml,role=execute]
 ----
 ---
@@ -148,10 +133,9 @@ workflow_job_templates:
             - identifier: Configure Hub
 ...
 ----
-
-Use the following `+playbooks/workflow_config.yml+` playbook to just run
-workflows
-
++
+Use the following `+playbooks/workflow_config.yml+` playbook to just run workflows
++
 [source,yaml,role=execute]
 ----
 ---
@@ -172,17 +156,15 @@ With this console command using tags:
 ansible-playbook -i inventory.yml -l execution playbooks/workflow_config.yml
 ----
 
-Further documentation for creating workflows can be found here:
-* https://github.com/redhat-cop/controller_configuration/tree/devel/roles/workflow_job_templates[workflow_job_templates role]
+- Further documentation for creating workflows can be found here:
++
+* https://github.com/redhat-cop/controller_configuration/tree/devel/roles/workflow_job_templates[Workflow Job Templates role]
 * https://www.ansible.com/blog/automation-controller-workflow-deployment-as-code[Automation controller workflow deployment as code - Ansible Blog]
 
 == Task 2 - Exporting an existing workflow
 
-Create the next playbook `+playbooks/export_workflow.yml+`, To extract
-the information from the server about a specific workflow. The
-awx.awx.export or the ansible.controller module can also be used to
-extract other objects from the server as well.
-
+- Create the next playbook `+playbooks/export_workflow.yml+`, To extract the information from the server about a specific workflow. The `awx.awx.export` or the `ansible.controller` module can also be used to extract other objects from the server as well.
++
 [source,yaml,role=execute]
 ----
 ---
@@ -214,17 +196,15 @@ extract other objects from the server as well.
         dest: /home/lab-user/casc_lab/workflow_export.yaml
 ...
 ----
-
++
 Once created, run the playbook with the following command
-
++
 [source,console]
 ----
 ansible-playbook -i inventory.yml -l control playbooks/export_workflow.yml
 ----
 
-NOTE: Notice that the exported workflow has a lot more meta information that
-was not needed for configuration. Many of these are fields that contain
-options for tweaking how it runs.
+NOTE: Notice that the exported workflow has a lot more meta information that was not needed for configuration. Many of these are fields that contain options for tweaking how it runs.
 
 == ✅ Done
 
