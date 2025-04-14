@@ -251,7 +251,6 @@ https://github.com/redhat-cop/aap_configuration_template
 ----
 +
 NOTE: You will want to refer to the role documentation to determine which options need to be set
-
 // TODO - What git project are we pointing at? Also, perhaps consider providing a table with the values they need to set so they can at least copy/paste URLs etc, but still have to look up the options required
 +
 [source,yaml,role=execute]
@@ -262,8 +261,10 @@ controller_projects:
 
 ...
 ----
+
 +
 image::module_2/project.png[title="Project",125%,125%, link=self, window=_blank]
+
 +
 Further documentation for those who are interested to learn more see:
 
