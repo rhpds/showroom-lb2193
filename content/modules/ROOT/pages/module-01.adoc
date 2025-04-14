@@ -38,7 +38,7 @@ With the following content:
 
 [source,yaml,role=execute]
 ----
-aap_hostname: "{{ aap_hostname }}"
+aap_hostname: # This will be filed out, DO NOT CHANGE IT
 aap_username: "{{ aap_username }}"
 aap_password: "{{ aap_password }}"
 aap_validate_certs: false
