@@ -1,10 +1,6 @@
 = Configuring the Automation controller
 
-In this section, you will only be given a summary of the objects you
-need to create along with some screenshots of a controller that is
-configured with the completed code. You will also be provided the
-variables sections from the readme’s for each of the required roles to
-help you complete this task.
+This section contains a summary of the objects to be created, visual references of controller that is configured with the completed code. You will also be provided with the variables sections from the readme’s for each of the required roles to help you complete this task.
 
 == Task 1 - Configure settings
 
@@ -25,12 +21,7 @@ controller_settings:
 
 == Task 2 - Configure Execution Environments
 
-- Create a file `/home/lab-user/casc_lab/group_vars/all/execution_environments.yml` and add the required information to the list `controller_execution_environments`
-to include a new EE (that we will show how to create with code in the next module) called `config_as_code` with image path `{{ aap_hostname }}/config_as_code` that is pull `always` and uses the credential `cr_ah`.
-+
-image::module_2/config_ee.png[title="Config Execution Environment",125%,125%, link=self, window=blank]
-image::module_2/minimal_ee.png[title="Minimal Execution Environment",125%,125%, link=self, window=blank]
-image::module_2/supported_ee.png[title="Supported Execution Environment",125%,125%, link=self, window=blank]
+- Create a file `/home/lab-user/casc_lab/group_vars/all/execution_environments.yml` with the below information to include a new EE (that we will creating with the code in the next module) called `config_as_code` with image path `{{ aap_hostname }}/config_as_code` and the pull policy set to  `always` and using the credential `cr_ah` for operation.
 +
 [source,yaml,role=execute]
 ----
@@ -47,10 +38,15 @@ controller_execution_environments:
     credential: cr_ah
 
 ...
-
-+
 ----
-NOTE: While you have not created this EE yet it, we have already added a version to hub so this won't fail.
+
+- Upon executing the playbook at the end of this exercise, the GUI will reflect the changes as shown below.
++
+image::module_2/config_ee.png[title="Config Execution Environment",125%,125%, link=self, window=blank]
+image::module_2/minimal_ee.png[title="Minimal Execution Environment",125%,125%, link=self, window=blank]
+image::module_2/supported_ee.png[title="Supported Execution Environment",125%,125%, link=self, window=blank]
++
+NOTE: While you have not created this EE yet, we have already added a version to hub so this won't fail.
 
 - Further documentation for those who are interested to learn more see:
 +
@@ -58,9 +54,7 @@ NOTE: While you have not created this EE yet it, we have already added a version
 
 == Task 3 - Create credential types
 
-- Create a file `/home/lab-user/casc_lab/group_vars/all/credential_types.yml` where we will
-create a list called `controller_credential_types` that has 5
-variables per item which are:
+- Create a file `/home/lab-user/casc_lab/group_vars/all/credential_types.yml` where we will create a list called `controller_credential_types` that has 5 variables per item defined below:
 
 * `name` this is required and will be what the credential type will be
 called
@@ -74,8 +68,7 @@ fields in the GUI that prompt the user for input.
 to the Ansible controller documentation for example syntax. These are
 the variables that will then be useable in a job.
 +
-which the role will loop over and for each item in this list it will
-create custom credential types for use in the controller.
+The role will iterate through this list and for each item in this list it will create custom credential types for using it in the controller.
 +
 [source,yaml,role=execute]
 ----
@@ -144,11 +137,8 @@ controller_credential_types:
 
 == Task 4 - Create credentials
 
-- Create a file `/home/lab-user/casc_lab/group_vars/all/credentials.yml` and add the required
-information to the list `controller_credentials` to configure the UI
-to look like the screenshot. Make it to look like the screenshot, but
-make sure to use parameters for the values. DO NOT PASTE YOUR PASSWORD 
-IN CLEARTEXT FOR CREDENTIALS!
+- Create a file `/home/lab-user/casc_lab/group_vars/all/credentials.yml` and add the required information to the list `controller_credentials` to configure the UI to look like the screenshot. Make it to look like the screenshot, but make sure to use parameters for the values.
+*DO NOT PASTE YOUR PASSWORD IN CLEARTEXT FOR CREDENTIALS!*
 +
 [source,yaml,role=execute]
 ----
