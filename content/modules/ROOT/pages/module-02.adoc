@@ -58,9 +58,7 @@ NOTE: While you have not created this EE yet it, we have already added a version
 
 == Task 3 - Create credential types
 
-- Create a file `/home/lab-user/casc_lab/group_vars/all/credential_types.yml` where we will
-create a list called `controller_credential_types` that has 5
-variables per item which are:
+- Create a file `/home/lab-user/casc_lab/group_vars/all/credential_types.yml` where we will create a list called `controller_credential_types` that has 5 variables per item defined below:
 
 * `name` this is required and will be what the credential type will be
 called
@@ -74,8 +72,7 @@ fields in the GUI that prompt the user for input.
 to the Ansible controller documentation for example syntax. These are
 the variables that will then be useable in a job.
 +
-which the role will loop over and for each item in this list it will
-create custom credential types for use in the controller.
+The role will iterate through this list and for each item in this list it will create custom credential types for using it in the controller.
 +
 [source,yaml,role=execute]
 ----
@@ -144,11 +141,8 @@ controller_credential_types:
 
 == Task 4 - Create credentials
 
-- Create a file `/home/lab-user/casc_lab/group_vars/all/credentials.yml` and add the required
-information to the list `controller_credentials` to configure the UI
-to look like the screenshot. Make it to look like the screenshot, but
-make sure to use parameters for the values. DO NOT PASTE YOUR PASSWORD 
-IN CLEARTEXT FOR CREDENTIALS!
+- Create a file `/home/lab-user/casc_lab/group_vars/all/credentials.yml` and add the required information to the list `controller_credentials` to configure the UI to look like the screenshot. Make it to look like the screenshot, but make sure to use parameters for the values.
+*DO NOT PASTE YOUR PASSWORD IN CLEARTEXT FOR CREDENTIALS!*
 +
 [source,yaml,role=execute]
 ----
