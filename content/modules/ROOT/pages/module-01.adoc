@@ -103,10 +103,10 @@ WARNING: These are hostnames and should not have 'https://', otherwise things wi
 [source,yaml,role=execute]
 ----
 ---
-vault_pass: ###LAB PASSWORD HERE###
-aap_password: ###LAB PASSWORD HERE###
-aap_service_account_password: ###LAB PASSWORD HERE###
-student_account: ###LAB PASSWORD HERE###
+vault_pass: {ssh_password}
+aap_password: {ssh_password}
+aap_service_account_password: {ssh_password}
+student_account: {ssh_username}
 ...
 ----
 +
