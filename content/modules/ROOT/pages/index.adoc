@@ -38,7 +38,7 @@ The terminal window to your right is *already* logged into the lab environment.
 For getting further around in the lab
 
 == Lab Access Details
-[%autowidth.stretch,width=80%,cols="a,a",options="header"]
+[%autowidth.stretch,width=80%,cols="a,a",options="header",subs="attributes"]
 |===
 2.+| {counter:srn}: Showroon
 | Showroom | {showroom_primary_view_url}
