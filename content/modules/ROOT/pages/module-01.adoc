@@ -44,7 +44,7 @@ With the following content:
 [source,yaml,role=execute]
 ----
 aap_hostname: # This will be filed out, DO NOT CHANGE IT
-aap_username: "{{ aap_username }}"
+aap_username: "{{ student_account }}"
 aap_password: "{{ aap_password }}"
 aap_validate_certs: false
 aap_request_timeout: 60
@@ -99,6 +99,8 @@ WARNING: These are hostnames and should not have 'https://', otherwise things wi
 == Task 4 - Create our Vault
 
 - A `vault.yml` has been prepoulated, please review this as it provides a source for most of the passwords and secrets used in the lab.
+- Your username should be:{ssh_username}
+- Your password should be: {ssh_password}
 +
 [source,yaml,role=execute]
 ----
