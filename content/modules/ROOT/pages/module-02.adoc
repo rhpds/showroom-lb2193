@@ -332,6 +332,7 @@ The next step is to create a playbook/file `/home/lab-user/casc_lab/playbooks/aa
 +
 [source,yaml,role=execute]
 ----
+---
 - name: Playbook to configure ansible controller post installation
   hosts: all
   gather_facts: false

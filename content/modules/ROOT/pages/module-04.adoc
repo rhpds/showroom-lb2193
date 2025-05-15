@@ -158,7 +158,7 @@ ansible-playbook -i inventory.yml -l execution playbooks/workflow_config.yml
 
 - Further documentation for creating workflows can be found here:
 +
-* https://github.com/redhat-cop/controller_configuration/tree/devel/roles/workflow_job_templates[Workflow Job Templates role]
+* https://github.com/redhat-cop/infra.aap_configuration/tree/devel/roles/controller_workflow_job_templates[Workflow Job Templates role]
 * https://www.ansible.com/blog/automation-controller-workflow-deployment-as-code[Automation controller workflow deployment as code - Ansible Blog]
 
 == Task 2 - Exporting an existing workflow
