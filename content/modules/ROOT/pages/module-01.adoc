@@ -105,10 +105,10 @@ WARNING: These are hostnames and should not have 'https://', otherwise things wi
 [source,yaml,role=execute]
 ----
 ---
-vault_pass: # Fill this in
-aap_password: # Fill this in
-aap_service_account_password: # Fill this in
-student_account: # Fill this in
+vault_pass: ### Insert Password here
+aap_password: ### Insert Password here
+aap_service_account_password: ### Insert Password here
+student_account: ### Insert Password here
 ...
 ----
 +
