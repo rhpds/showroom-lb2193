@@ -31,7 +31,7 @@ to include a new EE (that we will show how to create with code in the next modul
 image::module_2/config_ee.png[title="Config Execution Environment",125%,125%, link=self, window=blank]
 image::module_2/minimal_ee.png[title="Minimal Execution Environment",125%,125%, link=self, window=blank]
 image::module_2/supported_ee.png[title="Supported Execution Environment",125%,125%, link=self, window=blank]
-+
+
 [source,yaml,role=execute]
 ----
 ---
@@ -48,7 +48,6 @@ controller_execution_environments:
 
 ...
 
-+
 ----
 NOTE: While you have not created this EE yet it, we have already added a version to hub so this won't fail.
 
@@ -333,6 +332,7 @@ The next step is to create a playbook/file `/home/lab-user/casc_lab/playbooks/aa
 +
 [source,yaml,role=execute]
 ----
+---
 - name: Playbook to configure ansible controller post installation
   hosts: all
   gather_facts: false
