@@ -43,7 +43,7 @@ With the following content:
 
 [source,yaml,role=execute]
 ----
-aap_hostname: # This will be filed out, DO NOT CHANGE IT
+aap_hostname: # Fill this out with your hostname
 aap_username: "{{ student_account }}"
 aap_password: "{{ aap_password }}"
 aap_validate_certs: false
@@ -108,7 +108,7 @@ WARNING: These are hostnames and should not have 'https://', otherwise things wi
 vault_pass: ### Insert Password here
 aap_password: ### Insert Password here
 aap_service_account_password: ### Insert Password here
-student_account: ### Insert Password here
+student_account: ### Insert Username here
 ...
 ----
 +
