@@ -310,13 +310,13 @@ image::module_1/hub_task.png[Hub task,125%,125%,link=self, window=blank]
 
 [#results]
 == Task 12 - Validate configuration was applied
-- Navigate to the AAP login with the provided passwords
+- Navigate to the AAP console and login with the provided passwords (You will find the link to the console on the start page of this lab)
 
-In each section on the you should find the changes you have made
+Check that the following objects have been correctly created on AAP and are aligned with the instructuons above
 
-. Org:
-. Repository:
-. User:
+. Org
+. Repository
+. User
 . Team
 
 == ✅ Next Challenge
