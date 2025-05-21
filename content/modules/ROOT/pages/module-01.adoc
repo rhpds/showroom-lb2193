@@ -104,10 +104,10 @@ WARNING: These are hostnames and should not have 'https://', otherwise things wi
 [source,yaml,role=execute]
 ----
 ---
-vault_pass: ### Insert Password here
 aap_password: ### Insert Password here
 aap_service_account_password: ### Insert Password here
 student_account: ### Insert Username here
+vault_pass: cascLB2193
 ...
 ----
 +
