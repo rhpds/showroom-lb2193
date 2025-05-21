@@ -221,20 +221,20 @@ image::module_2/credential.png[title="Credential",125%,125%, link=self, window=b
 
 == Task 5 - Create organizations
 
-- Update the file `/home/lab-user/casc_lab/group_vars/all/organizations.yml` and add the required information to the list `controller_organizations` to configure the UI to look like the screenshot. Here we are adding the credentials that we created above to the Organization so we can pull collections from Automation Hub.
+- Update the file `/home/lab-user/casc_lab/group_vars/all/organizations.yml` and add the required information to the list `aap_organizations` to configure the UI to look like the screenshot. Here we are adding the credentials that we created above to the Organization so we can pull collections from Automation Hub.
 +
 image::module_2/orgs.png[title="Config as Code Organization",125%,125%, link=self, window=blank]
 +
 [source,yaml,role=execute]
 ----
 ---
-controller_organizations:
+aap_organizations:
 ...
 ----
 
 - Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/controller_organizations[Organizations role,window=_blank]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/aap_organizations[Organizations role,window=_blank]
 
 == Task 6 - Create projects
 
