@@ -43,7 +43,6 @@ With the following content:
 
 [source,yaml,role=execute]
 ----
-aap_hostname: # This will be filed out, DO NOT CHANGE IT
 aap_username: "{{ student_account }}"
 aap_password: "{{ aap_password }}"
 aap_validate_certs: false
@@ -105,10 +104,10 @@ WARNING: These are hostnames and should not have 'https://', otherwise things wi
 [source,yaml,role=execute]
 ----
 ---
-vault_pass: ### Insert Password here
 aap_password: ### Insert Password here
 aap_service_account_password: ### Insert Password here
-student_account: ### Insert Password here
+student_account: ### Insert Username here
+vault_pass: cascLB2193
 ...
 ----
 +
@@ -310,13 +309,13 @@ image::module_1/hub_task.png[Hub task,125%,125%,link=self, window=blank]
 
 [#results]
 == Task 12 - Validate configuration was applied
-- Navigate to the AAP login with the provided passwords
+- Navigate to the AAP console and login with the provided passwords (You will find the link to the console on the start page of this lab)
 
-In each section on the you should find the changes you have made
+Check that the following objects have been correctly created on AAP and are aligned with the instructions above
 
-. Org:
-. Repository:
-. User:
+. Org
+. Repository
+. User
 . Team
 
 == ✅ Next Challenge
