@@ -286,7 +286,7 @@ image::module_2/inventories.png[title="Inventory",125%,125%, link=self, window=_
 
 == Task 8 - Create inventory sources
 
-- Add to file `/home/lab-user/casc_lab/group_vars/all/inventories.yml` and a new variable with the required information to the list `controller_inventory_sources` to configure the UI to look like the screenshot
+- Add to file `/home/lab-user/casc_lab/group_vars/all/inventory_sources.yml` and a new variable with the required information to the list `controller_inventory_sources` to configure the UI to look like the screenshot
 +
 [source,yaml,role=execute]
 ----
