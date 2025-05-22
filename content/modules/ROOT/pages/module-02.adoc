@@ -234,7 +234,7 @@ aap_organizations:
 
 - Further documentation for those who are interested to learn more see:
 
-* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/aap_organizations[Organizations role,window=_blank]
+* https://github.com/redhat-cop/infra.aap_configuration/blob/devel/roles/gateway_organizations[Organizations role,window=_blank]
 
 == Task 6 - Create projects
 
