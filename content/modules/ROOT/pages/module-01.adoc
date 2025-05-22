@@ -69,7 +69,7 @@ ee_validate_certs: false
 [#inventory]
 == Task 3 - Creating our inventory file
 
-- Create your inventory file `inventory.yml`, You do not need to replace anything in this file.
+- Create your inventory file `inventory.yml`, copy the content below to the file.
 +
 [source,yaml,role=execute]
 ----
