@@ -215,6 +215,7 @@ aap_user_accounts:
 hub_collection_remotes:
   - name: community-infra
     url: 'https://galaxy.ansible.com/'
+    sync_dependencies: false
     requirements:
       - name: infra.ee_utilities
         version: '>=4.0.0'
