@@ -316,8 +316,8 @@ controller_templates:
 ...
 ----
 +
-image::module_2/aap_config_template.png[title="AAP Config Template",125%,125%, link=self, window=_blank]
-image::module_2/build_ee_template.png[title="Build EE Template",125%,125%, link=self, window=_blank]
+image::module_2/aap_config_template_v2.png[title="AAP Config Template",125%,125%, link=self, window=_blank]
+image::module_2/build_ee_template_v2.png[title="Build EE Template",125%,125%, link=self, window=_blank]
 
 - Further documentation for those who are interested to learn more see:
 +
