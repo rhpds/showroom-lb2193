@@ -32,6 +32,7 @@ In this lab, we will demonstrate how to use Configuration as Code to configure v
 By following this lab, you will learn how to use CasC to maintain a consistent and repeatable infrastructure configuration across different environments. This approach will help prevent drift in configuration, require approval before implementation, and ensure that both development and production deployments are well-maintained.
 
 === Lab Access
+Please use the `{ssh_password}` for looging onto Vscode server. 
 
 The terminal window to your right is *already* logged into the lab environment.
 
